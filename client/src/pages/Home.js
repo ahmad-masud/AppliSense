@@ -18,7 +18,7 @@ function Home() {
     <div className="home">
       <div className="hero">
         <div className="hero-text-container">
-          <p className="hero-title">An easy-to-use tech job tracker</p>
+          <p className="hero-title">An easy-to-use job tracker</p>
           <p className="hero-text">
             Stop getting ghosted! AppliSense helps you track your job
             applications, follow up with companies, and stay organized in your
@@ -63,12 +63,13 @@ function Home() {
             <img className="feature-image" src={feature3} alt="email" />
             <div className="feature-text-container">
               <p className="feature-title">
-                <EnvelopeFill /> Receive an{" "}
-                <span style={{ color: "BlueViolet" }}>email</span>
+                <EnvelopeFill />{" "}
+                <span style={{ color: "BlueViolet" }}> Sort and filter</span>
+                your applications
               </p>
               <p className="feature-text">
-                Receive a friendly email when your job application has advanced
-                in a stage or ended.
+                Easily filter and sort job applications based on company,
+                position, status, and more
               </p>
             </div>
           </div>

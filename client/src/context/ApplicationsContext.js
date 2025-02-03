@@ -30,7 +30,9 @@ export const applicationsReducer = (state, action) => {
         ...state,
         applications: state.applications
           .map((application) =>
-            application._id === action.payload._id ? action.payload : application
+            application._id === action.payload._id
+              ? action.payload
+              : application
           )
           .sort((a, b) => new Date(a.date) - new Date(b.date)),
       };

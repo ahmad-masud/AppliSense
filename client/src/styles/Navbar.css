@@ -12,14 +12,6 @@
   top: 0;
 }
 
-.navbar-container.show {
-  transform: translateY(0);
-}
-
-.navbar-container.hide {
-  transform: translateY(-100%);
-}
-
 .navbar {
   max-width: 1200px;
   width: calc(100% - 40px);

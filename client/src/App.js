@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
-import Create from "./pages/Create";
+import ApplicationForm from "./pages/ApplicationForm";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Account from "./pages/Account";
@@ -25,8 +25,12 @@ function App() {
           element={user ? <Dashboard /> : <Navigate to="/login" />}
         />
         <Route
-          path="/create"
-          element={user ? <Create /> : <Navigate to="/login" />}
+          path="/application/create"
+          element={user ? <ApplicationForm /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/application/update/:id"
+          element={user ? <ApplicationForm /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"

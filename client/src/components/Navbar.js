@@ -2,16 +2,12 @@ import "../styles/Navbar.css";
 import { BriefcaseFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
-import useScrollDirection from "../hooks/useScrollDirection";
 
 function Navbar() {
   const { user } = useAuthContext();
-  const scrollDirection = useScrollDirection();
 
   return (
-    <div
-      className={`navbar-container ${scrollDirection === "down" ? "hide" : "show"}`}
-    >
+    <div className="navbar-container">
       <div className="navbar">
         <Link className="nav-title" to="/">
           <BriefcaseFill /> AppliSense

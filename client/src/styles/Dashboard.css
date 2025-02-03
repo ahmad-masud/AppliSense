@@ -2,14 +2,34 @@
   max-width: 1200px;
   width: calc(100% - 40px);
   margin: 0 auto;
+  margin-top: 90px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1rem;
+  color: #3f3d56;
+  flex-grow: 1;
 }
 
 .applications {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  margin-top: 90px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .application-placeholder {
@@ -21,4 +41,44 @@
   justify-content: center;
   cursor: pointer;
   color: #3f3d56;
+  transition: all 200ms ease-in-out;
+}
+
+.application-placeholder:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.stats-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  border-radius: 5px;
+  padding: 10px;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.stat-box.applied {
+  background: rgb(247, 223, 186);
+  color: rgb(245, 143, 75);
+}
+
+.stat-box.interview {
+  background: rgb(197, 213, 248);
+  color: rgb(48, 131, 255);
+}
+
+.stat-box.offer {
+  background: rgb(199, 248, 197);
+  color: rgb(62, 133, 65);
+}
+
+.stat-box.rejected {
+  background: rgb(248, 197, 197);
+  color: rgb(133, 62, 62);
 }

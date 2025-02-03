@@ -48,7 +48,7 @@ AppliSense is a simple yet powerful application app built using the MERN stack (
    - Create a `.env` file in the `server` directory with the following variables:
 
      ```env
-     PORT=5000
+     PORT=4000
      MONGODB_URI=<your_mongodb_uri>
      TOKEN_SECRET=<your_jwt_secret>
      ```

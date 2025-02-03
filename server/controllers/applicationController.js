@@ -5,85 +5,165 @@ const getApplications = async (req, res) => {
   const user_id = req.user._id;
 
   try {
-    const applications = await Application.find({ user_id }).sort({ createdAt: -1 });
+    const applications = await Application.find({ user_id }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(applications);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 
 const getApplication = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "Invalid ID" });
+    return res.status(400).json({ error: "Invalid application ID" });
   }
-  const application = await Application.findById(id);
-  if (!application) {
-    return res.status(404).json({ error: "Application not found" });
+
+  try {
+    const application = await Application.findById(id);
+    if (!application) {
+      return res.status(404).json({ error: "Application not found" });
+    }
+    res.status(200).json(application);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-  res.status(200).json(application);
 };
 
 const createApplication = async (req, res) => {
-  const { title, description, date } = req.body;
+  const {
+    company,
+    position,
+    jobType,
+    location,
+    status,
+    dateApplied,
+    jobPostingURL,
+    notes,
+  } = req.body;
 
-  if (!title || !date) {
-    return res.status(400).json({ error: "Please provide a title and date" });
+  if (
+    !company ||
+    !position ||
+    !jobType ||
+    !location ||
+    !status ||
+    !dateApplied
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all required fields" });
   }
 
   try {
     const user_id = req.user._id;
     const application = await Application.create({
-      title,
-      description,
-      date,
       user_id,
+      company,
+      position,
+      jobType,
+      location,
+      status,
+      dateApplied,
+      jobPostingURL,
+      notes,
     });
-    res.status(200).json(application);
+
+    res.status(201).json(application);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// NEW FUNCTION: Create multiple applications at once
+const createApplications = async (req, res) => {
+  const applications = req.body.applications; // Expecting an array of applications
+
+  if (!Array.isArray(applications) || applications.length === 0) {
+    return res
+      .status(400)
+      .json({ error: "Please provide an array of applications" });
+  }
+
+  try {
+    const user_id = req.user._id;
+
+    // Add the user_id to each application before saving
+    const applicationsWithUser = applications.map((app) => ({
+      user_id,
+      ...app,
+    }));
+
+    // Validate each application before inserting
+    for (let app of applicationsWithUser) {
+      if (
+        !app.company ||
+        !app.position ||
+        !app.jobType ||
+        !app.location ||
+        !app.status ||
+        !app.dateApplied
+      ) {
+        return res
+          .status(400)
+          .json({ error: "All applications must have required fields" });
+      }
+    }
+
+    // Insert all applications into the database
+    const createdApplications =
+      await Application.insertMany(applicationsWithUser);
+
+    res.status(201).json(createdApplications);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
 const deleteApplication = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "Invalid ID" });
+    return res.status(400).json({ error: "Invalid application ID" });
   }
 
-  const application = await Application.findByIdAndDelete(id);
-
-  if (!application) {
-    return res.status(404).json({ error: "Application not found" });
+  try {
+    const application = await Application.findByIdAndDelete(id);
+    if (!application) {
+      return res.status(404).json({ error: "Application not found" });
+    }
+    res.status(200).json({ message: "Application deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-
-  res.status(200).json({ message: "Application deleted" });
 };
 
 const updateApplication = async (req, res) => {
   const { id } = req.params;
-  const { title, description, date } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "Invalid ID" });
+    return res.status(400).json({ error: "Invalid application ID" });
   }
 
-  const application = await Application.findByIdAndUpdate(
-    id,
-    { title, description, date },
-    { new: true }
-  );
+  try {
+    const application = await Application.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
-  if (!application) {
-    return res.status(404).json({ error: "Application not found" });
+    if (!application) {
+      return res.status(404).json({ error: "Application not found" });
+    }
+
+    res.status(200).json(application);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-
-  res.status(200).json(application);
 };
 
 module.exports = {
   getApplications,
   getApplication,
   createApplication,
+  createApplications, // New function added to the exports
   deleteApplication,
   updateApplication,
 };
