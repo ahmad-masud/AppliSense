@@ -1,16 +1,10 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
 const app = express();
 const applicationRoutes = require("./routes/applications");
 const userRoutes = require("./routes/user");
 const mongoose = require("mongoose");
-const port = 4000;
-
-app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
-  credentials: true
-}));
+const isLocal = process.env.IS_LOCAL;
 
 app.use(express.json());
 
@@ -22,16 +16,18 @@ app.use((req, res, next) => {
 app.use("/api/applications", applicationRoutes);
 app.use("/api/users", userRoutes);
 
-mongoose
-  .connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
+
+    if (isLocal) {
+      app.listen(PORT, () => {
+        console.log(`Server running locally on port ${PORT}`);
+      });
+    }
   })
-  .catch((err) => {
-    console.log("Error connecting to MongoDB", err.message);
+  .catch(err => {
+    console.error("Error connecting to MongoDB", err.message);
   });
 
 module.exports = app;
