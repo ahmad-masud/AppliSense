@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "concurrently \"npm run start --prefix server\" \"npm run start --prefix client\"",
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "install-dependencies": "npm run install-client && npm run install-server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "prettier": "^3.4.2"
+  }
+}

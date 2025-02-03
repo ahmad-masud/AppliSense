@@ -1,0 +1,36 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: calc(100vh - 100px);
+}
+
+.not-found-title {
+  font-size: 8rem;
+  font-weight: 700;
+  color: #3f3d56;
+}
+
+.not-found-text {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #3f3d56;
+}
+
+.not-found-button {
+  padding: 10px 15px;
+  font-weight: 600;
+  color: #fff;
+  background-color: BlueViolet;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 200ms ease-in-out;
+}
+
+.not-found-button:hover {
+  background: rgb(90, 28, 148);
+}
