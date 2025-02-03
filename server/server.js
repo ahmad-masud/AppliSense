@@ -1,10 +1,26 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const applicationRoutes = require("./routes/applications");
 const userRoutes = require("./routes/user");
 const mongoose = require("mongoose");
-const isLocal = process.env.IS_LOCAL;
+
+const PORT = process.env.PORT || 4000;
+const allowedOrigins = ["https://applisense.vercel.app"];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
+app.options("*", cors());
 
 app.use(express.json());
 
@@ -21,7 +37,7 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB");
 
-    if (isLocal) {
+    if (!process.env.CLIENT_URL) {
       app.listen(PORT, () => {
         console.log(`Server running locally on port ${PORT}`);
       });
