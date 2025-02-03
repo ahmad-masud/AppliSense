@@ -4,10 +4,7 @@ const app = express();
 const applicationRoutes = require("./routes/applications");
 const userRoutes = require("./routes/user");
 const mongoose = require("mongoose");
-const path = require("path");
 const isLocal = process.env.IS_LOCAL;
-
-app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 app.use(express.json());
 
