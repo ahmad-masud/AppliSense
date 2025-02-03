@@ -22,7 +22,7 @@ export const useRegister = () => {
       return;
     }
 
-    const response = await fetch(`/api/users/register`, {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

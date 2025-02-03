@@ -27,11 +27,10 @@ function ApplicationForm() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
 
-  // Fetch application data if editing
   useEffect(() => {
     if (isEditMode) {
       const fetchApplication = async () => {
-        const response = await fetch(`/api/applications/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications/${id}`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         const data = await response.json();
@@ -55,7 +54,6 @@ function ApplicationForm() {
 
       fetchApplication();
     } else {
-      // Set default date for new application
       const today = new Date().toISOString().split("T")[0];
       setDateApplied(today);
     }
@@ -89,8 +87,8 @@ function ApplicationForm() {
     };
 
     const endpoint = isEditMode
-      ? `/api/applications/update/${id}`
-      : "/api/applications/create";
+      ? `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications/update/${id}`
+      : `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications/create`;
     const method = isEditMode ? "PATCH" : "POST";
 
     const response = await fetch(endpoint, {

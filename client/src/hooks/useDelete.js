@@ -10,7 +10,7 @@ export const useDelete = () => {
     setIsLoading(true);
     setError("");
 
-    const response = await fetch(`/api/users/delete`, {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

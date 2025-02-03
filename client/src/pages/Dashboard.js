@@ -11,19 +11,18 @@ function Dashboard() {
   const { user } = useAuthContext();
   const hasFetched = useRef(false);
 
-  // Filters & Sorting State
   const [searchQuery, setSearchQuery] = useState("");
   const [jobTypeFilter, setJobTypeFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [workTypeFilter, setWorkTypeFilter] = useState("");
   const [sourceFilter, setSourceFilter] = useState("");
-  const [sortOption, setSortOption] = useState("date-desc"); // Default: Newest first
+  const [sortOption, setSortOption] = useState("date-desc");
 
   useEffect(() => {
     document.title = "Dashboard | AppliSense";
 
     const fetchApplications = async () => {
-      const response = await fetch(`/api/applications`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -50,10 +49,8 @@ function Dashboard() {
     { Applied: 0, Interview: 0, Offer: 0, Rejected: 0, Accepted: 0 }
   );
 
-  // Filter & Sort Logic
   const filteredApplications = applications
     ?.filter((application) => {
-      // Search by company, position, or location
       const searchLower = searchQuery.toLowerCase();
       return (
         application.company.toLowerCase().includes(searchLower) ||
@@ -62,32 +59,28 @@ function Dashboard() {
       );
     })
     .filter((application) => {
-      // Filter by job type
       return jobTypeFilter ? application.jobType === jobTypeFilter : true;
     })
     .filter((application) => {
-      // Filter by status
       return statusFilter ? application.status === statusFilter : true;
     })
     .filter((application) => {
-      // Filter by work type (Remote, On-Site, Hybrid)
       return workTypeFilter ? application.workType === workTypeFilter : true;
     })
     .filter((application) => {
-      // Filter by application source
       return sourceFilter
         ? application.applicationSource === sourceFilter
         : true;
     })
     .sort((a, b) => {
       if (sortOption === "date-desc") {
-        return new Date(b.dateApplied) - new Date(a.dateApplied); // Newest first
+        return new Date(b.dateApplied) - new Date(a.dateApplied);
       } else if (sortOption === "date-asc") {
-        return new Date(a.dateApplied) - new Date(b.dateApplied); // Oldest first
+        return new Date(a.dateApplied) - new Date(b.dateApplied);
       } else if (sortOption === "company-asc") {
-        return a.company.localeCompare(b.company); // A-Z
+        return a.company.localeCompare(b.company);
       } else if (sortOption === "company-desc") {
-        return b.company.localeCompare(a.company); // Z-A
+        return b.company.localeCompare(a.company);
       }
       return 0;
     });
@@ -144,7 +137,6 @@ function Dashboard() {
           <option value="Accepted">Accepted</option>
         </select>
 
-        {/* Filter by Work Type */}
         <select
           className="filter-select"
           value={workTypeFilter}
@@ -156,7 +148,6 @@ function Dashboard() {
           <option value="Hybrid">Hybrid</option>
         </select>
 
-        {/* Filter by Application Source */}
         <select
           className="filter-select"
           value={sourceFilter}
@@ -200,7 +191,6 @@ function Dashboard() {
         </select>
       </div>
 
-      {/* Applications List */}
       <div className="applications">
         <Link className="application-placeholder" to="/application/create">
           <Plus size={100} />
