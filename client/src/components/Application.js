@@ -11,11 +11,13 @@ import {
 import { useApplicationsContext } from "../hooks/useApplicationsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAlerts } from "../hooks/useAlerts";
 
 function Application({ application }) {
   const navigate = useNavigate();
   const { dispatch } = useApplicationsContext();
   const { user } = useAuthContext();
+  const { addAlert } = useAlerts();
 
   const [showFullNotes, setShowFullNotes] = useState(false);
   const maxNoteLength = 50;
@@ -50,6 +52,7 @@ function Application({ application }) {
 
     if (response.ok) {
       dispatch({ type: "DELETE_APPLICATION", payload: application._id });
+      addAlert("Application deleted successfully", "success");
     }
   };
 
@@ -69,9 +72,11 @@ function Application({ application }) {
         </div>
       </div>
       <hr className="application-divider" />
-      <p className="application-field application-jobType">
-        <BriefcaseFill size={20} /> {application.jobType}
-      </p>
+      {application.jobType && (
+        <p className="application-field application-jobType">
+          <BriefcaseFill size={20} /> {application.jobType}
+        </p>
+      )}
       <p className="application-field application-date">
         <CalendarFill size={20} /> {formattedDate}
       </p>

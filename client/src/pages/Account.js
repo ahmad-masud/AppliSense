@@ -5,6 +5,7 @@ import { useDelete } from "../hooks/useDelete";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
+import { useAlerts } from "../hooks/useAlerts";
 
 function Account() {
   const [firstName, setFirstName] = useState("");
@@ -16,6 +17,7 @@ function Account() {
   const { user } = useAuthContext();
   const { logout } = useLogout();
   const navigate = useNavigate();
+  const { addAlert } = useAlerts();
 
   useEffect(() => {
     document.title = "Account | AppliSense";
@@ -35,22 +37,26 @@ function Account() {
 
     if (!error) {
       setOldEmail(email);
-      alert("Account updated successfully!");
+      addAlert("Account updated successfully", "success");
+    } else {
+      addAlert("An error occurred", "error");
     }
   };
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete your account?"))
       await deleteUser(email);
+    addAlert("Account deleted successfully", "success");
   };
 
   const handleLogout = async () => {
     await logout();
     navigate("/login");
+    addAlert("Logged out successfully", "success");
   };
 
   return (
-    <div className="form-container">
+    <div className="second-form-container">
       <div className="form-sub-container">
         <form className="form" onSubmit={handleSubmit}>
           <p className="form-title">Account Management</p>
@@ -91,11 +97,6 @@ function Account() {
             />
           </div>
           <div className="form-group">
-            <Link to="/changePassword" className="password-button">
-              Change Password
-            </Link>
-          </div>
-          <div className="form-buttons">
             <button
               className="submit-button"
               type="submit"
@@ -103,21 +104,26 @@ function Account() {
             >
               Update Account
             </button>
-            <button
-              className="delete-button"
-              type="button"
-              onClick={handleDelete}
-            >
-              Delete Account
-            </button>
           </div>
-          <div className="form-group">
+          <div className="form-buttons">
+            <Link to="/changePassword" className="password-button">
+              Change Password
+            </Link>
             <button
               className="logout-button"
               type="button"
               onClick={handleLogout}
             >
               Logout
+            </button>
+          </div>
+          <div className="form-group">
+            <button
+              className="delete-button"
+              type="button"
+              onClick={handleDelete}
+            >
+              Delete Account
             </button>
           </div>
           {error && <p className="form-error">{error}</p>}

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useApplicationsContext } from "../hooks/useApplicationsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useAlerts } from "../hooks/useAlerts";
 
 function ApplicationForm() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ function ApplicationForm() {
 
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
-  const [jobType, setJobType] = useState("Full-Time");
+  const [jobType, setJobType] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("Applied");
   const [dateApplied, setDateApplied] = useState("");
@@ -20,6 +21,7 @@ function ApplicationForm() {
   const [workType, setWorkType] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(isEditMode);
+  const { addAlert } = useAlerts();
 
   const { dispatch } = useApplicationsContext();
   const navigate = useNavigate();
@@ -107,9 +109,15 @@ function ApplicationForm() {
         type: isEditMode ? "UPDATE_APPLICATION" : "CREATE_APPLICATION",
         payload: data,
       });
+      if (!isEditMode) {
+        addAlert("Application saved successfully", "success");
+      } else {
+        addAlert("Application updated successfully", "success");
+      }
       navigate("/dashboard");
     } else {
       setError(data.error);
+      addAlert("An error occurred", "error");
     }
   };
 
@@ -154,41 +162,6 @@ function ApplicationForm() {
           </div>
 
           <div className="form-group">
-            <label className="label required" htmlFor="jobType">
-              Job Type
-            </label>
-            <select
-              className="input"
-              id="jobType"
-              value={jobType}
-              onChange={(e) => setJobType(e.target.value)}
-              required
-            >
-              <option value="Full-Time">Full-Time</option>
-              <option value="Part-Time">Part-Time</option>
-              <option value="Contract">Contract</option>
-              <option value="Internship">Internship</option>
-              <option value="Co-op">Co-op</option>
-              <option value="Apprenticeship">Apprenticeship</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label className="label required" htmlFor="location">
-              Location
-            </label>
-            <input
-              className="input"
-              type="text"
-              id="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="city, state, country"
-              required
-            />
-          </div>
-
-          <div className="form-group">
             <label className="label required" htmlFor="status">
               Application Status
             </label>
@@ -221,6 +194,40 @@ function ApplicationForm() {
           </div>
 
           <div className="form-group">
+            <label className="label required" htmlFor="jobType">
+              Job Type
+            </label>
+            <select
+              className="input"
+              id="jobType"
+              value={jobType}
+              onChange={(e) => setJobType(e.target.value)}
+            >
+              <option value="">Select</option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Part-Time">Part-Time</option>
+              <option value="Contract">Contract</option>
+              <option value="Internship">Internship</option>
+              <option value="Co-op">Co-op</option>
+              <option value="Apprenticeship">Apprenticeship</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label className="label required" htmlFor="location">
+              Location
+            </label>
+            <input
+              className="input"
+              type="text"
+              id="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="city, state, country"
+            />
+          </div>
+
+          <div className="form-group">
             <label className="label" htmlFor="jobPostingURL">
               Job Posting URL
             </label>
@@ -244,7 +251,7 @@ function ApplicationForm() {
               value={applicationSource}
               onChange={(e) => setApplicationSource(e.target.value)}
             >
-              <option value="">Select Source</option>
+              <option value="">Select</option>
               <option value="LinkedIn">LinkedIn</option>
               <option value="Indeed">Indeed</option>
               <option value="Glassdoor">Glassdoor</option>
@@ -285,7 +292,7 @@ function ApplicationForm() {
               value={workType}
               onChange={(e) => setWorkType(e.target.value)}
             >
-              <option value="">Select Type</option>
+              <option value="">Select</option>
               <option value="Remote">Remote</option>
               <option value="On-Site">On-Site</option>
               <option value="Hybrid">Hybrid</option>

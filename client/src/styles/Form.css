@@ -16,6 +16,14 @@
   border-radius: 5px;
 }
 
+.second-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+  height: calc(100vh - 170px);
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -90,7 +98,7 @@
   border-radius: 5px;
   border: none;
   color: white;
-  background: BlueViolet;
+  background: red;
   cursor: pointer;
   width: 100%;
 }
@@ -104,7 +112,7 @@
   border-radius: 5px;
   border: none;
   color: white;
-  background: BlueViolet;
+  background: gray;
   cursor: pointer;
   width: calc(100% - 30px);
   text-align: center;
@@ -119,7 +127,7 @@
   border-radius: 5px;
   border: none;
   color: white;
-  background: BlueViolet;
+  background: gray;
   cursor: pointer;
   width: 100%;
   text-align: center;
@@ -129,7 +137,7 @@
 .delete-button:hover,
 .password-button:hover,
 .logout-button:hover {
-  background: rgb(90, 28, 148);
+  filter: brightness(0.75);
 }
 
 .form-error {

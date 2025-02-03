@@ -99,7 +99,7 @@ function Dashboard() {
           Applied: {statusCounts["Applied"]}
         </div>
         <div className="stat-box interview">
-          Interviews: {statusCounts["Interview Scheduled"]}
+          Interviews: {statusCounts["Interview"]}
         </div>
         <div className="stat-box offer">Offers: {statusCounts["Offer"]}</div>
         <div className="stat-box rejected">

@@ -25,11 +25,12 @@ const applicationSchema = new mongoose.Schema(
     location: {
       type: String,
       trim: true,
-      required: true,
+      default: null,
     },
     jobType: {
       type: String,
       enum: [
+        "",
         "Full-Time",
         "Part-Time",
         "Contract",
@@ -37,7 +38,7 @@ const applicationSchema = new mongoose.Schema(
         "Co-op",
         "Apprenticeship",
       ],
-      required: true,
+      default: null,
     },
     status: {
       type: String,
@@ -58,6 +59,7 @@ const applicationSchema = new mongoose.Schema(
     applicationSource: {
       type: String,
       enum: [
+        "",
         "LinkedIn",
         "Indeed",
         "Glassdoor",
@@ -83,7 +85,7 @@ const applicationSchema = new mongoose.Schema(
     },
     workType: {
       type: String,
-      enum: ["Remote", "On-Site", "Hybrid"],
+      enum: ["", "Remote", "On-Site", "Hybrid"],
       default: null,
     },
   },

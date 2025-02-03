@@ -40,17 +40,12 @@ const createApplication = async (req, res) => {
     status,
     dateApplied,
     jobPostingURL,
+    applicationSource,
+    workType,
     notes,
   } = req.body;
 
-  if (
-    !company ||
-    !position ||
-    !jobType ||
-    !location ||
-    !status ||
-    !dateApplied
-  ) {
+  if (!company || !position || !status || !dateApplied) {
     return res
       .status(400)
       .json({ error: "Please fill in all required fields" });
@@ -67,6 +62,8 @@ const createApplication = async (req, res) => {
       status,
       dateApplied,
       jobPostingURL,
+      applicationSource,
+      workType,
       notes,
     });
 

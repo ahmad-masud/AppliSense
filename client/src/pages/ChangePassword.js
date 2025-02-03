@@ -2,6 +2,7 @@ import "../styles/Form.css";
 import { useState, useEffect } from "react";
 import { useChangePassword } from "../hooks/useChangePassword";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useAlerts } from "../hooks/useAlerts";
 
 function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -9,6 +10,7 @@ function ChangePassword() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const { updatePassword, isLoading, error } = useChangePassword();
   const { user } = useAuthContext();
+  const { addAlert } = useAlerts();
 
   useEffect(() => {
     document.title = "Change Password | AppliSense";
@@ -24,13 +26,19 @@ function ChangePassword() {
       confirmNewPassword
     );
 
+    if (!error) {
+      addAlert("Password changed successfully!", "success");
+    } else {
+      addAlert("An error occurred", "error");
+    }
+
     setCurrentPassword("");
     setNewPassword("");
     setConfirmNewPassword("");
   };
 
   return (
-    <div className="form-container">
+    <div className="second-form-container">
       <div className="form-sub-container">
         <form className="form" onSubmit={handleSubmit}>
           <p className="form-title">Change Password</p>
