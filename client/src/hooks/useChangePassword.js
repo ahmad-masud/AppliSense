@@ -25,13 +25,16 @@ export const useChangePassword = () => {
       return;
     }
 
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/changePassword`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, currentPassword, newPassword }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/changePassword`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, currentPassword, newPassword }),
+      }
+    );
     const data = await response.json();
 
     if (!response.ok) {

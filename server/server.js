@@ -16,7 +16,8 @@ app.use((req, res, next) => {
 app.use("/api/applications", applicationRoutes);
 app.use("/api/users", userRoutes);
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
 
@@ -26,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URI)
       });
     }
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Error connecting to MongoDB", err.message);
   });
 

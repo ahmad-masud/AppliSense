@@ -10,13 +10,16 @@ export const useLogin = () => {
     setIsLoading(true);
     setError("");
 
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
     const data = await response.json();
 
     if (!response.ok) {

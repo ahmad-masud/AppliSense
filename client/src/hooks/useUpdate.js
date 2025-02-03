@@ -10,13 +10,16 @@ export const useUpdate = () => {
     setIsLoading(true);
     setError("");
 
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/update`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, newFirstName, newLastName, newEmail }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/update`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, newFirstName, newLastName, newEmail }),
+      }
+    );
     const data = await response.json();
 
     if (!response.ok) {

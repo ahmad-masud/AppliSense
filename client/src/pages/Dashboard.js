@@ -22,11 +22,14 @@ function Dashboard() {
     document.title = "Dashboard | AppliSense";
 
     const fetchApplications = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
 
       const data = await response.json();
 
