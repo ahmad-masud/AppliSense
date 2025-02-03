@@ -11,7 +11,7 @@ export const useLogin = () => {
     setError("");
 
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/login`,
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/login`,
       {
         method: "POST",
         headers: {

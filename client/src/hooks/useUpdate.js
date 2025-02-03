@@ -11,7 +11,7 @@ export const useUpdate = () => {
     setError("");
 
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/update`,
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/update`,
       {
         method: "PUT",
         headers: {

@@ -31,7 +31,7 @@ function ApplicationForm() {
     if (isEditMode) {
       const fetchApplication = async () => {
         const response = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications/${id}`,
+          `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications/${id}`,
           {
             headers: { Authorization: `Bearer ${user.token}` },
           }
@@ -90,8 +90,8 @@ function ApplicationForm() {
     };
 
     const endpoint = isEditMode
-      ? `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications/update/${id}`
-      : `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications/create`;
+      ? `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications/update/${id}`
+      : `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications/create`;
     const method = isEditMode ? "PATCH" : "POST";
 
     const response = await fetch(endpoint, {

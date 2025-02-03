@@ -41,7 +41,7 @@ function Application({ application }) {
     if (!confirmDelete) return;
 
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications/delete/${application._id}`,
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications/delete/${application._id}`,
       {
         method: "DELETE",
         headers: {

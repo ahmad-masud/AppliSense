@@ -13,8 +13,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/applications", applicationRoutes);
-app.use("/api/users", userRoutes);
+app.use("/applications", applicationRoutes);
+app.use("/users", userRoutes);
 
 mongoose
   .connect(process.env.MONGODB_URI)

@@ -11,7 +11,7 @@ export const useDelete = () => {
     setError("");
 
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/users/delete`,
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/delete`,
       {
         method: "DELETE",
         headers: {

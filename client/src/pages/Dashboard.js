@@ -23,7 +23,7 @@ function Dashboard() {
 
     const fetchApplications = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/api/applications`,
+        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

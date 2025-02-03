@@ -89,19 +89,19 @@ AppliSense is a simple yet powerful application app built using the MERN stack (
 
 ### Authentication
 
-- **POST /api/users/register**: Register a new user
-- **POST /api/users/login**: Login an existing user
-- **DELETE /api/users/delete**: Delete an existing user
-- **PUT /api/users/update**: Update an existing user
-- **PUT /api/users/changePassword**: Change the password of an existing user
+- **POST /users/register**: Register a new user
+- **POST /users/login**: Login an existing user
+- **DELETE /users/delete**: Delete an existing user
+- **PUT /users/update**: Update an existing user
+- **PUT /users/changePassword**: Change the password of an existing user
 
 ### Applications
 
-- **GET /api/applications**: Get all applications for the logged-in user
-- **GET /api/applications/:id**: Get a application for the logged-in user
-- **POST /api/applications/create**: Create a new application
-- **PATCH /api/applications/:id**: Update an existing application
-- **DELETE /api/applications/delete/:id**: Delete a application
+- **GET /applications**: Get all applications for the logged-in user
+- **GET /applications/:id**: Get a application for the logged-in user
+- **POST /applications/create**: Create a new application
+- **PATCH /applications/:id**: Update an existing application
+- **DELETE /applications/delete/:id**: Delete a application
 
 ## License
 
