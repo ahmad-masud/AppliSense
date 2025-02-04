@@ -49,7 +49,6 @@ function Account() {
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete your account?"))
       await deleteUser(email);
-    addAlert("Account deleted successfully", "success");
   };
 
   const handleLogout = async () => {
