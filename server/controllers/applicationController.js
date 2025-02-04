@@ -73,9 +73,8 @@ const createApplication = async (req, res) => {
   }
 };
 
-// NEW FUNCTION: Create multiple applications at once
 const createApplications = async (req, res) => {
-  const applications = req.body.applications; // Expecting an array of applications
+  const applications = req.body.applications;
 
   if (!Array.isArray(applications) || applications.length === 0) {
     return res
@@ -86,13 +85,11 @@ const createApplications = async (req, res) => {
   try {
     const user_id = req.user._id;
 
-    // Add the user_id to each application before saving
     const applicationsWithUser = applications.map((app) => ({
       user_id,
       ...app,
     }));
 
-    // Validate each application before inserting
     for (let app of applicationsWithUser) {
       if (
         !app.company ||
@@ -108,7 +105,6 @@ const createApplications = async (req, res) => {
       }
     }
 
-    // Insert all applications into the database
     const createdApplications =
       await Application.insertMany(applicationsWithUser);
 
@@ -160,7 +156,7 @@ module.exports = {
   getApplications,
   getApplication,
   createApplication,
-  createApplications, // New function added to the exports
+  createApplications,
   deleteApplication,
   updateApplication,
 };
