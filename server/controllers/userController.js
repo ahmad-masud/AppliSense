@@ -23,12 +23,6 @@ const sendCode = async (req, res) => {
       return res.status(400).json({ message: "Email is required" });
     }
 
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(404).json({ message: "Email not found" });
-    }
-
     const code = generateCode();
     verificationCodes[email] = code;
 
