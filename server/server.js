@@ -6,12 +6,16 @@ const applicationRoutes = require("./routes/applications");
 const userRoutes = require("./routes/user");
 const mongoose = require("mongoose");
 
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 const allowedOrigins = ["https://applisense.vercel.app"];
 
 app.use(
   cors({
     origin: function (origin, callback) {
+      if (process.env.IS_LOCAL) {
+        return callback(null, true);
+      }
+
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -39,7 +43,7 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB");
 
-    if (!process.env.CLIENT_URL) {
+    if (process.env.IS_LOCAL) {
       app.listen(PORT, () => {
         console.log(`Server running locally on port ${PORT}`);
       });

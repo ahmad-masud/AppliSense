@@ -8,7 +8,7 @@ function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const { updatePassword, isLoading, error } = useChangePassword();
+  const { updatePassword, isLoading, error, success } = useChangePassword();
   const { user } = useAuthContext();
   const { addAlert } = useAlerts();
 
@@ -26,16 +26,16 @@ function ChangePassword() {
       confirmNewPassword
     );
 
-    if (!error) {
-      addAlert("Password changed successfully!", "success");
-    } else {
-      addAlert("An error occurred", "error");
-    }
-
     setCurrentPassword("");
     setNewPassword("");
     setConfirmNewPassword("");
   };
+
+  useEffect(() => {
+    if (success) {
+      addAlert("Password updated successfully", "success");
+    }
+  }, [success, addAlert]);
 
   return (
     <div className="second-form-container">

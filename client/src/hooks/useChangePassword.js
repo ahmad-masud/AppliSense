@@ -3,6 +3,7 @@ import { useState } from "react";
 export const useChangePassword = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const updatePassword = async (
     email,
@@ -12,6 +13,7 @@ export const useChangePassword = () => {
   ) => {
     setIsLoading(true);
     setError("");
+    setSuccess(false);
 
     if (newPassword !== confirmNewPassword) {
       setError("Passwords do not match");
@@ -44,8 +46,8 @@ export const useChangePassword = () => {
     }
     if (response.ok) {
       setIsLoading(false);
-      alert("Password changed successfully!");
+      setSuccess(true);
     }
   };
-  return { updatePassword, isLoading, error };
+  return { updatePassword, isLoading, error, success };
 };

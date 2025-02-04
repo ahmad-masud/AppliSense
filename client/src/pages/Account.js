@@ -12,7 +12,7 @@ function Account() {
   const [lastName, setLastName] = useState("");
   const [oldEmail, setOldEmail] = useState("");
   const [email, setEmail] = useState("");
-  const { updateUser, isLoading, error } = useUpdate();
+  const { updateUser, isLoading, error, success } = useUpdate();
   const { deleteUser } = useDelete();
   const { user } = useAuthContext();
   const { logout } = useLogout();
@@ -37,11 +37,14 @@ function Account() {
 
     if (!error) {
       setOldEmail(email);
-      addAlert("Account updated successfully", "success");
-    } else {
-      addAlert("An error occurred", "error");
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      addAlert("Account updated successfully", "success");
+    }
+  }, [success, addAlert]);
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete your account?"))
