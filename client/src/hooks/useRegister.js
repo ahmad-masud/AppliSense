@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { useVerificationCode } from "./useVerificationCode";
 
 export const useRegister = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
+  const {
+    sendCode,
+    verifyCode,
+    isCodeSent,
+    isLoading: isVerifying,
+    error: verificationError,
+  } = useVerificationCode();
 
   const register = async (
     firstName,
@@ -22,16 +30,38 @@ export const useRegister = () => {
       return;
     }
 
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ firstName, lastName, email, password }),
-      }
+    await sendCode(email);
+
+    if (!isCodeSent) {
+      setError("Failed to send verification code. Try again.");
+      setIsLoading(false);
+      return;
+    }
+
+    const verificationCode = prompt(
+      "Enter the 6-digit verification code sent to your email"
     );
+
+    if (!verificationCode) {
+      setError("Verification code is required to complete registration.");
+      setIsLoading(false);
+      return;
+    }
+
+    const isVerified = await verifyCode(email, verificationCode);
+
+    if (!isVerified) {
+      setError("Invalid verification code. Please try again.");
+      setIsLoading(false);
+      return;
+    }
+
+    const response = await fetch("http://localhost:4000/users/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName, lastName, email, password }),
+    });
+
     const data = await response.json();
 
     if (!response.ok) {
@@ -39,11 +69,16 @@ export const useRegister = () => {
       setIsLoading(false);
       return;
     }
-    if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(data));
-      dispatch({ type: "LOGIN", payload: data });
-      setIsLoading(false);
-    }
+
+    localStorage.setItem("user", JSON.stringify(data));
+    dispatch({ type: "LOGIN", payload: data });
+
+    setIsLoading(false);
   };
-  return { register, isLoading, error };
+
+  return {
+    register,
+    isLoading: isLoading || isVerifying,
+    error: error || verificationError,
+  };
 };

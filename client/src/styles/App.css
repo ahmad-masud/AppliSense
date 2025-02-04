@@ -18,4 +18,8 @@ body {
 .link {
   text-decoration: none;
   color: dodgerblue;
+  background: none;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
 }

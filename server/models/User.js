@@ -79,6 +79,20 @@ userSchema.statics.login = async function (email, password) {
   return user;
 };
 
+userSchema.statics.loginWithOTP = async function (email) {
+  if (!email) {
+    throw new Error("Email is required");
+  }
+
+  const user = await this.findOne({ email });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+};
+
 userSchema.statics.delete = async function (email) {
   if (!email) {
     throw new Error("Email is required");
@@ -120,12 +134,8 @@ userSchema.statics.update = async function (
   await user.save();
 };
 
-userSchema.statics.changePassword = async function (
-  email,
-  oldPassword,
-  newPassword
-) {
-  if (!email || !oldPassword || !newPassword) {
+userSchema.statics.changePassword = async function (email, newPassword) {
+  if (!email || !newPassword) {
     throw new Error("All fields are required");
   }
 
@@ -133,12 +143,6 @@ userSchema.statics.changePassword = async function (
 
   if (!user) {
     throw new Error("Email not found");
-  }
-
-  const match = await bcrypt.compare(oldPassword, user.password);
-
-  if (!match) {
-    throw new Error("Password is incorrect");
   }
 
   if (!validator.isStrongPassword(newPassword)) {

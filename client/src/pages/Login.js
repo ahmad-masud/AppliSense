@@ -6,7 +6,7 @@ import { useLogin } from "../hooks/useLogin";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, error, isLoading } = useLogin();
+  const { login, loginWithOTP, error, isLoading } = useLogin();
 
   useEffect(() => {
     document.title = "Login | AppliSense";
@@ -16,6 +16,12 @@ function Login() {
     e.preventDefault();
 
     await login(email, password);
+  };
+
+  const handleReset = async (e) => {
+    e.preventDefault();
+
+    await loginWithOTP(email);
   };
 
   return (
@@ -58,6 +64,12 @@ function Login() {
             <Link className="link" to="/register">
               Register
             </Link>
+          </p>
+          <p>
+            Forgot your password?{" "}
+            <button className="link" onClick={handleReset}>
+              Login with OTP
+            </button>
           </p>
         </form>
       </div>

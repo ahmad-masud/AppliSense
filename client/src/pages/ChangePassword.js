@@ -5,7 +5,6 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useAlerts } from "../hooks/useAlerts";
 
 function ChangePassword() {
-  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const { updatePassword, isLoading, error, success } = useChangePassword();
@@ -19,14 +18,8 @@ function ChangePassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await updatePassword(
-      user.email,
-      currentPassword,
-      newPassword,
-      confirmNewPassword
-    );
+    await updatePassword(user.email, newPassword, confirmNewPassword);
 
-    setCurrentPassword("");
     setNewPassword("");
     setConfirmNewPassword("");
   };
@@ -42,18 +35,6 @@ function ChangePassword() {
       <div className="form-sub-container">
         <form className="form" onSubmit={handleSubmit}>
           <p className="form-title">Change Password</p>
-          <div className="form-group">
-            <label className="label required" htmlFor="currentPassword">
-              Current Password
-            </label>
-            <input
-              className="input"
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              required
-            />
-          </div>
           <div className="form-group">
             <label className="label required" htmlFor="newPassword">
               New Password
