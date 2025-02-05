@@ -19,6 +19,8 @@ function Register() {
     e.preventDefault();
 
     await register(firstName, lastName, email, password, confirmPassword);
+
+    addAlert("Registered in successfully", "success");
   };
 
   return (

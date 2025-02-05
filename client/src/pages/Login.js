@@ -19,7 +19,7 @@ function Login() {
 
     await login(email, password);
 
-    addAlert("Loading...", "info");
+    addAlert("Logged in successfully", "success");
   };
 
   const handleReset = async (e) => {
@@ -27,7 +27,7 @@ function Login() {
 
     await loginWithOTP(email);
 
-    addAlert("Loading...", "info");
+    addAlert("Logged in successfully", "success");
   };
 
   return (
