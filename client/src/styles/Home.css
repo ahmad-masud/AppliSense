@@ -5,7 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 70px);
+  margin-top: 70px;
 }
 
 .hero-text-container {

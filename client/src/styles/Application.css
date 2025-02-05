@@ -100,13 +100,23 @@
   flex-wrap: wrap;
 }
 
-.application-status {
+.application-status, .application-source, .application-workType {
   align-self: start;
   font-size: 1rem;
   color: rgb(100, 100, 255);
   background: rgb(225, 225, 255);
   padding: 5px;
   border-radius: 4px;
+}
+
+.application-source {
+  color: rgb(245, 143, 75);
+  background: rgb(247, 223, 186);
+}
+
+.application-workType {
+  color: rgb(255, 100, 100);
+  background: rgb(255, 225, 225);
 }
 
 .application-notes-read-more {

@@ -24,10 +24,20 @@ function Application({ application }) {
 
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
-    const options = { year: "numeric", month: "long", day: "2-digit" };
-    return new Intl.DateTimeFormat("en-US", options).format(date);
+    const now = new Date();
+    const diffTime = now - date;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  
+    if (diffDays > 30) {
+      const options = { year: "numeric", month: "long", day: "2-digit" };
+      return new Intl.DateTimeFormat("en-US", options).format(date);
+    } else if (diffDays === 1) {
+      return `${diffDays} day ago`;
+    } else {
+      return `${diffDays} days ago`;
+    }
   };
-
+  
   const formattedDate = application.dateApplied
     ? formatDate(application.dateApplied)
     : "No date provided";
@@ -60,10 +70,25 @@ function Application({ application }) {
     navigate(`/application/update/${application._id}`);
   };
 
+  const getBackgroundColor = (letter) => {
+    const colors = [
+      "#FF5733", "#33FF57", "#3357FF", "#FF33A8", "#A833FF", "#33FFF5", "#FF8C33",
+      "#57FF33", "#F5FF33", "#8C33FF", "#33A8FF", "#FF3380", "#33FFA8", "#A8FF33",
+      "#FF5733", "#5733FF", "#A833FF", "#FFC733", "#33FFC7", "#FF5733", "#33FF57",
+      "#C733FF", "#FF336A", "#336AFF", "#FF9F33", "#33FF9F"
+    ];
+  
+    const index = letter.toUpperCase().charCodeAt(0) - 65;
+    return colors[index] || "#000";
+  };
+
   return (
     <div className="application">
       <div className="application-header">
-        <div className="application-header-icon">
+        <div 
+          className="application-header-icon"
+          style={{ backgroundColor: getBackgroundColor(application.company[0]) }}
+        >
           <p>{application.company[0]}</p>
         </div>
         <div className="application-header-text">
@@ -90,12 +115,12 @@ function Application({ application }) {
           {application.status}
         </p>
         {application.applicationSource && (
-          <p className="application-field application-status">
+          <p className="application-field application-source">
             {application.applicationSource}
           </p>
         )}
         {application.workType && (
-          <p className="application-field application-status">
+          <p className="application-field application-workType">
             {application.workType}
           </p>
         )}
