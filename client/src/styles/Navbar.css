@@ -1,15 +1,15 @@
 .navbar-container {
   width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70px;
+  height: 60px;
   position: fixed;
   z-index: 1000;
   transition: all ease-in-out 200ms;
   top: 0;
+  background: #5d6f78;
 }
 
 .navbar {
@@ -22,12 +22,11 @@
 }
 
 .nav-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: BlueViolet;
+  font-size: 1.25rem;
+  color: white;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   text-decoration: none;
 }
 
@@ -38,9 +37,8 @@
 }
 
 .nav-link {
-  color: #3f3d56;
+  color: white;
   font-size: 1rem;
-  font-weight: 600;
   text-decoration: none;
   transition: all ease-in-out 200ms;
   padding: 10px 15px;
@@ -48,19 +46,32 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  background: #4c5d67;
 }
 
 .nav-link:nth-child(2) {
-  color: white;
-  background: BlueViolet;
+  color: #5d6f78;
+  background: white;
 }
 
+.nav-button:hover,
 .nav-link:hover {
-  background: #f4f4f4;
+  filter: brightness(0.75);
 }
 
-.nav-link:nth-child(2):hover {
-  background: rgb(90, 28, 148);
+.nav-button {
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all ease-in-out 200ms;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.nav-link:nth-child(2) {
+  color: #5d6f78;
+  background: white;
 }
 
 @media screen and (max-width: 600px) {

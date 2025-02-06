@@ -18,7 +18,7 @@ function Home() {
     <div className="home">
       <div className="hero">
         <div className="hero-text-container">
-          <p className="hero-title">An easy-to-use job tracker</p>
+          <p className="hero-title">Stay posted, don't get ghosted</p>
           <p className="hero-text">
             Stop getting ghosted! AppliSense helps you track your job
             applications, follow up with companies, and stay organized in your
@@ -37,7 +37,7 @@ function Home() {
             <div className="feature-text-container">
               <p className="feature-title">
                 <ClockFill /> Get started in{" "}
-                <span style={{ color: "BlueViolet" }}>seconds</span>
+                <span style={{ color: "#0060B9" }}>seconds</span>
               </p>
               <p className="feature-text">
                 Just fill out a simple form to add a job application and track
@@ -50,7 +50,7 @@ function Home() {
             <div className="feature-text-container">
               <p className="feature-title">
                 <FilterSquareFill />{" "}
-                <span style={{ color: "BlueViolet" }}>Organize</span> your
+                <span style={{ color: "#0060B9" }}>Organize</span> your
                 applications
               </p>
               <p className="feature-text">
@@ -64,7 +64,7 @@ function Home() {
             <div className="feature-text-container">
               <p className="feature-title">
                 <EnvelopeFill />{" "}
-                <span style={{ color: "BlueViolet" }}> Sort and filter</span>
+                <span style={{ color: "#0060B9" }}> Sort and filter</span>
                 your applications
               </p>
               <p className="feature-text">

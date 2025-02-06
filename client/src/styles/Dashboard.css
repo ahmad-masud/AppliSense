@@ -1,15 +1,24 @@
 .dashboard {
-  max-width: 1200px;
-  width: calc(100% - 40px);
-  margin: 0 auto;
-  margin-top: 90px;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.filters-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #4a5860;
+  padding: 10px 0;
+  margin-bottom: 20px;
 }
 
 .filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 1200px;
+  width: calc(100% - 40px);
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -17,33 +26,33 @@
 .filters input,
 .filters select {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 5px;
   outline: none;
   font-size: 1rem;
-  color: #3f3d56;
+  color: #273a51;
   flex-grow: 1;
 }
 
 .applications {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 10px;
   margin: 20px 0;
+  max-width: 1200px;
+  width: calc(100% - 40px);
+  margin: 0 auto;
 }
 
 .application-placeholder {
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px dashed #0060b9;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #3f3d56;
+  color: #0060b9;
   transition: all 200ms ease-in-out;
-}
-
-.application-placeholder:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-size: 2rem;
 }

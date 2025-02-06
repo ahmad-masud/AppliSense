@@ -10,20 +10,20 @@
 .not-found-title {
   font-size: 8rem;
   font-weight: 700;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 .not-found-text {
   font-size: 2rem;
   font-weight: 500;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 .not-found-button {
   padding: 10px 15px;
   font-weight: 600;
   color: #fff;
-  background-color: BlueViolet;
+  background-color: #0060b9;
   border: none;
   border-radius: 5px;
   cursor: pointer;

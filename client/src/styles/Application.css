@@ -1,12 +1,11 @@
 .application {
-  background-color: white;
+  background-color: #e9edf0;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: rgb(75, 75, 75);
+  color: #575757;
   word-break: break-all;
 }
 
@@ -27,7 +26,7 @@
 .application-company {
   font-size: 1rem;
   font-weight: 600;
-  color: #3f3d56;
+  color: #273a51;
   width: 100%;
 }
 
@@ -58,7 +57,7 @@
   width: 40px;
   height: 40px;
   border-radius: 4px;
-  background: blueviolet;
+  background: #0060b9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,20 +102,18 @@
 .application-workType {
   align-self: start;
   font-size: 1rem;
-  color: rgb(100, 100, 255);
-  background: rgb(225, 225, 255);
+  color: #273a51;
+  background: #bbf0dc;
   padding: 5px;
   border-radius: 4px;
 }
 
 .application-source {
-  color: rgb(245, 143, 75);
-  background: rgb(247, 223, 186);
+  background: #f2c1ca;
 }
 
 .application-workType {
-  color: rgb(255, 100, 100);
-  background: rgb(255, 225, 225);
+  background: #60c4f4;
 }
 
 .application-notes-read-more {

@@ -82,99 +82,103 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="filter-input"
-        />
+      <div className="filters-container">
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="filter-input"
+          />
 
-        <select
-          className="filter-select"
-          value={jobTypeFilter}
-          onChange={(e) => setJobTypeFilter(e.target.value)}
-        >
-          <option value="">All Job Types</option>
-          <option value="Full-Time">Full-Time</option>
-          <option value="Part-Time">Part-Time</option>
-          <option value="Contract">Contract</option>
-          <option value="Internship">Internship</option>
-          <option value="Freelance">Freelance</option>
-          <option value="Temporary">Temporary</option>
-          <option value="Apprenticeship">Apprenticeship</option>
-        </select>
+          <select
+            className="filter-select"
+            value={jobTypeFilter}
+            onChange={(e) => setJobTypeFilter(e.target.value)}
+          >
+            <option value="">All Job Types</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+            <option value="Freelance">Freelance</option>
+            <option value="Temporary">Temporary</option>
+            <option value="Apprenticeship">Apprenticeship</option>
+          </select>
 
-        <select
-          className="filter-select"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="">All Statuses</option>
-          <option value="Applied">Applied</option>
-          <option value="Interview">Interview</option>
-          <option value="Offer">Offer</option>
-          <option value="Rejected">Rejected</option>
-        </select>
+          <select
+            className="filter-select"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="">All Statuses</option>
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
 
-        <select
-          className="filter-select"
-          value={workTypeFilter}
-          onChange={(e) => setWorkTypeFilter(e.target.value)}
-        >
-          <option value="">All Work Types</option>
-          <option value="Remote">Remote</option>
-          <option value="On-Site">On-Site</option>
-          <option value="Hybrid">Hybrid</option>
-        </select>
+          <select
+            className="filter-select"
+            value={workTypeFilter}
+            onChange={(e) => setWorkTypeFilter(e.target.value)}
+          >
+            <option value="">All Work Types</option>
+            <option value="Remote">Remote</option>
+            <option value="On-Site">On-Site</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
 
-        <select
-          className="filter-select"
-          value={sourceFilter}
-          onChange={(e) => setSourceFilter(e.target.value)}
-        >
-          <option value="">All Sources</option>
-          <option value="LinkedIn">LinkedIn</option>
-          <option value="Indeed">Indeed</option>
-          <option value="Glassdoor">Glassdoor</option>
-          <option value="ZipRecruiter">ZipRecruiter</option>
-          <option value="Monster">Monster</option>
-          <option value="AngelList">AngelList</option>
-          <option value="Hired">Hired</option>
-          <option value="CareerBuilder">CareerBuilder</option>
-          <option value="SimplyHired">SimplyHired</option>
-          <option value="Snagajob">Snagajob</option>
-          <option value="Dice (Tech Jobs)">Dice (Tech Jobs)</option>
-          <option value="Stack Overflow Jobs">Stack Overflow Jobs</option>
-          <option value="GitHub Jobs">GitHub Jobs</option>
-          <option value="Direct Company Website">Direct Company Website</option>
-          <option value="Employee Referral">Employee Referral</option>
-          <option value="Networking Event">Networking Event</option>
-          <option value="Career Fair">Career Fair</option>
-          <option value="Freelance Platform">Freelance Platform</option>
-          <option value="University Internship Portal">
-            University Internship Portal
-          </option>
-          <option value="Government Job Portal">Government Job Portal</option>
-          <option value="Other">Other</option>
-        </select>
+          <select
+            className="filter-select"
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
+          >
+            <option value="">All Sources</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Indeed">Indeed</option>
+            <option value="Glassdoor">Glassdoor</option>
+            <option value="ZipRecruiter">ZipRecruiter</option>
+            <option value="Monster">Monster</option>
+            <option value="AngelList">AngelList</option>
+            <option value="Hired">Hired</option>
+            <option value="CareerBuilder">CareerBuilder</option>
+            <option value="SimplyHired">SimplyHired</option>
+            <option value="Snagajob">Snagajob</option>
+            <option value="Dice (Tech Jobs)">Dice (Tech Jobs)</option>
+            <option value="Stack Overflow Jobs">Stack Overflow Jobs</option>
+            <option value="GitHub Jobs">GitHub Jobs</option>
+            <option value="Direct Company Website">
+              Direct Company Website
+            </option>
+            <option value="Employee Referral">Employee Referral</option>
+            <option value="Networking Event">Networking Event</option>
+            <option value="Career Fair">Career Fair</option>
+            <option value="Freelance Platform">Freelance Platform</option>
+            <option value="University Internship Portal">
+              University Internship Portal
+            </option>
+            <option value="Government Job Portal">Government Job Portal</option>
+            <option value="Other">Other</option>
+          </select>
 
-        <select
-          className="filter-select"
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
-        >
-          <option value="date-desc">Newest First</option>
-          <option value="date-asc">Oldest First</option>
-          <option value="company-asc">Company A-Z</option>
-          <option value="company-desc">Company Z-A</option>
-        </select>
+          <select
+            className="filter-select"
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+          >
+            <option value="date-desc">Newest First</option>
+            <option value="date-asc">Oldest First</option>
+            <option value="company-asc">Company A-Z</option>
+            <option value="company-desc">Company Z-A</option>
+          </select>
+        </div>
       </div>
 
       <div className="applications">
         <Link className="application-placeholder" to="/application/create">
-          <Plus size={100} />
+          <Plus size={75} /> Add Application
         </Link>
         {filteredApplications.length > 0 &&
           filteredApplications.map((application) => (

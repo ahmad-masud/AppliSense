@@ -2,25 +2,24 @@
   max-width: 1200px;
   width: calc(100% - 40px);
   margin: 0 auto;
-  margin-top: 90px;
+  margin-top: 80px;
   margin-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
 
 .chart-container {
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #e9edf0;
+  border-radius: 10px;
   padding: 20px 0;
 }
 
 .chart-title {
   font-size: 1.5rem;
-  color: #3f3d56;
+  color: #273a51;
   text-align: center;
   margin: 0;
   font-weight: bold;

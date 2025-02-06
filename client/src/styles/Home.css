@@ -24,14 +24,14 @@
 .hero-title {
   font-size: 3rem;
   font-weight: bold;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 .hero-text {
   font-size: 1.5rem;
   font-weight: 400;
   opacity: 0.75;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 .hero-button {
@@ -40,7 +40,7 @@
   font-weight: 600;
   border: none;
   border-radius: 5px;
-  background-color: BlueViolet;
+  background-color: #0060b9;
   color: white;
   cursor: pointer;
   transition: all 200ms ease-in-out;
@@ -110,14 +110,14 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 .feature-text {
   font-size: 1.25rem;
   font-weight: 400;
   opacity: 0.75;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 @media screen and (max-width: 600px) {
@@ -165,14 +165,14 @@
 .anti-hero-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 .anti-hero-text {
   font-size: 1.25rem;
   font-weight: 400;
   opacity: 0.75;
-  color: #3f3d56;
+  color: #273a51;
 }
 
 .anti-hero-button {
@@ -181,7 +181,7 @@
   font-weight: 600;
   border: none;
   border-radius: 5px;
-  background-color: BlueViolet;
+  background-color: #0060b9;
   color: white;
   cursor: pointer;
   transition: all 200ms ease-in-out;
@@ -190,7 +190,7 @@
 
 .hero-button:hover,
 .anti-hero-button:hover {
-  background: rgb(90, 28, 148);
+  filter: brightness(0.75);
 }
 
 @media screen and (max-width: 600px) {

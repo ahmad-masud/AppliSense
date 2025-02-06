@@ -1,5 +1,5 @@
 import "../styles/Navbar.css";
-import { BriefcaseFill } from "react-bootstrap-icons";
+import { BriefcaseFill, PersonFill, PieChartFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -10,7 +10,7 @@ function Navbar() {
     <div className="navbar-container">
       <div className="navbar">
         <Link className="nav-title" to="/">
-          <BriefcaseFill /> AppliSense
+          <BriefcaseFill size={30} /> AppliSense
         </Link>
         <div className="nav-links">
           {!user && (
@@ -20,17 +20,17 @@ function Navbar() {
           )}
           {!user && (
             <Link className="nav-link" to="/register">
-              Register FREE
+              Register
             </Link>
           )}
           {user && (
-            <Link to="/statistics" className="nav-link">
-              Statistics
+            <Link to="/statistics" className="nav-button">
+              <PieChartFill size={20} />
             </Link>
           )}
           {user && (
-            <Link to="/account" className="nav-link">
-              Account
+            <Link to="/account" className="nav-button">
+              <PersonFill size={20} />
             </Link>
           )}
         </div>

@@ -38,7 +38,7 @@ function Register() {
               className="input"
               type="text"
               value={firstName}
-              placeholder="Enter your first name..."
+              placeholder="First Name"
               onChange={(e) => setFirstName(e.target.value)}
               required
             />
@@ -51,7 +51,7 @@ function Register() {
               className="input"
               type="text"
               value={lastName}
-              placeholder="Enter your last name..."
+              placeholder="Last Name"
               onChange={(e) => setLastName(e.target.value)}
               required
             />
@@ -64,7 +64,7 @@ function Register() {
               className="input"
               type="email"
               value={email}
-              placeholder="Enter your email address..."
+              placeholder="Email Address"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -77,7 +77,7 @@ function Register() {
               className="input"
               type="password"
               value={password}
-              placeholder="Enter your password..."
+              placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
@@ -90,7 +90,7 @@ function Register() {
               className="input"
               type="password"
               value={confirmPassword}
-              placeholder="Confirm your password..."
+              placeholder="Confirm Password"
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />

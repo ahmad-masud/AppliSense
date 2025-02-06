@@ -142,7 +142,7 @@ function ApplicationForm() {
               id="company"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              placeholder="company name..."
+              placeholder="Company Name"
               required
             />
           </div>
@@ -157,7 +157,7 @@ function ApplicationForm() {
               id="position"
               value={position}
               onChange={(e) => setPosition(e.target.value)}
-              placeholder="position..."
+              placeholder="Position"
               required
             />
           </div>
