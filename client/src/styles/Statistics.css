@@ -2,7 +2,8 @@
   max-width: 1200px;
   width: calc(100% - 40px);
   margin: 0 auto;
-  margin: 100px auto;
+  margin-top: 90px;
+  margin-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;

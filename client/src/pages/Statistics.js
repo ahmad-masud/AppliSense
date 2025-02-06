@@ -46,50 +46,73 @@ function Statistics() {
 
   const countOccurrences = (field) => {
     return applications.reduce((acc, app) => {
-      const key = app[field] || "Unknown";
+      const key = app[field];
+      if (!key) return acc;
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
   };
 
-  const statusCounts = countOccurrences("status");
-  const jobTypeCounts = countOccurrences("jobType");
-  const workTypeCounts = countOccurrences("workType");
-  const sourceCounts = countOccurrences("applicationSource");
+  const formatPieData = (counts) => {
+    return Object.entries(counts)
+      .filter(([_, value]) => value > 0)
+      .map(([name, value]) => ({ name, value }));
+  };
 
-  const formatPieData = (counts) =>
-    Object.entries(counts).map(([name, value]) => ({ name, value }));
+  const renderPieChart = (data, title) => {
+    if (data.length === 0) return null;
 
-  const renderPieChart = (data, title) => (
-    <div className="chart-container">
-      <p className="chart-title">{title}</p>
-      <PieChart width={400} height={300}>
-        <Pie
-          data={data}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={100}
-          fill="#8884d8"
-          label
-        >
-          {data.map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip />
-        <Legend />
-      </PieChart>
-    </div>
-  );
+    return (
+      <div className="chart-container">
+        <p className="chart-title">{title}</p>
+        <PieChart width={400} height={300}>
+          <Pie
+            data={data}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={100}
+            fill="#8884d8"
+            label
+          >
+            {data.map((_, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </div>
+    );
+  };
+
+  const statusData = formatPieData(countOccurrences("status"));
+  const jobTypeData = formatPieData(countOccurrences("jobType"));
+  const workTypeData = formatPieData(countOccurrences("workType"));
+  const sourceData = formatPieData(countOccurrences("applicationSource"));
+
+  const hasData =
+    statusData.length ||
+    jobTypeData.length ||
+    workTypeData.length ||
+    sourceData.length;
 
   return (
     <div className="statistics">
-      {renderPieChart(formatPieData(statusCounts), "Application Status")}
-      {renderPieChart(formatPieData(jobTypeCounts), "Job Types")}
-      {renderPieChart(formatPieData(workTypeCounts), "Work Types")}
-      {renderPieChart(formatPieData(sourceCounts), "Application Sources")}
+      {hasData ? (
+        <>
+          {renderPieChart(statusData, "Application Status")}
+          {renderPieChart(jobTypeData, "Job Types")}
+          {renderPieChart(workTypeData, "Work Types")}
+          {renderPieChart(sourceData, "Application Sources")}
+        </>
+      ) : (
+        <p className="chart-fallback">Add applications to see statistics</p>
+      )}
     </div>
   );
 }
