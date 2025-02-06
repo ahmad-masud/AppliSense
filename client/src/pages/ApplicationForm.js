@@ -115,7 +115,7 @@ function ApplicationForm() {
       } else {
         addAlert("Application updated successfully", "success");
       }
-      navigate("/dashboard");
+      navigate("/");
     } else {
       setError(data.error);
       addAlert("An error occurred", "error");

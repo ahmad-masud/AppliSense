@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
+import Statistics from "./pages/Statistics";
 import ApplicationForm from "./pages/ApplicationForm";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -23,10 +24,10 @@ function App() {
         <Alerts />
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={user ? <Dashboard /> : <Home />} />
           <Route
-            path="/dashboard"
-            element={user ? <Dashboard /> : <Navigate to="/login" />}
+            path="/statistics"
+            element={user ? <Statistics /> : <Navigate to="/login" />}
           />
           <Route
             path="/application/create"
@@ -38,11 +39,11 @@ function App() {
           />
           <Route
             path="/login"
-            element={user ? <Navigate to="/dashboard" /> : <Login />}
+            element={user ? <Navigate to="/" /> : <Login />}
           />
           <Route
             path="/register"
-            element={user ? <Navigate to="/dashboard" /> : <Register />}
+            element={user ? <Navigate to="/" /> : <Register />}
           />
           <Route
             path="/account"

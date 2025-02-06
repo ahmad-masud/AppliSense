@@ -24,8 +24,8 @@ function Navbar() {
             </Link>
           )}
           {user && (
-            <Link to="/dashboard" className="nav-link">
-              Dashboard
+            <Link to="/statistics" className="nav-link">
+              Statistics
             </Link>
           )}
           {user && (

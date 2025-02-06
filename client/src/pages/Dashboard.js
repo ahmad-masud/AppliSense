@@ -44,14 +44,6 @@ function Dashboard() {
     }
   }, [dispatch, user]);
 
-  const statusCounts = applications.reduce(
-    (acc, app) => {
-      acc[app.status] = (acc[app.status] || 0) + 1;
-      return acc;
-    },
-    { Applied: 0, Interview: 0, Offer: 0, Rejected: 0, Accepted: 0 }
-  );
-
   const filteredApplications = applications
     ?.filter((application) => {
       const searchLower = searchQuery.toLowerCase();
@@ -90,19 +82,6 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="stats-container">
-        <div className="stat-box applied">
-          Applied: {statusCounts["Applied"]}
-        </div>
-        <div className="stat-box interview">
-          Interviews: {statusCounts["Interview"]}
-        </div>
-        <div className="stat-box offer">Offers: {statusCounts["Offer"]}</div>
-        <div className="stat-box rejected">
-          Rejected: {statusCounts["Rejected"]}
-        </div>
-      </div>
-
       <div className="filters">
         <input
           type="text"
@@ -137,7 +116,6 @@ function Dashboard() {
           <option value="Interview">Interview</option>
           <option value="Offer">Offer</option>
           <option value="Rejected">Rejected</option>
-          <option value="Accepted">Accepted</option>
         </select>
 
         <select

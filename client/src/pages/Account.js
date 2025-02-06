@@ -58,7 +58,7 @@ function Account() {
   };
 
   return (
-    <div className="second-form-container">
+    <div className="form-container">
       <div className="form-sub-container">
         <form className="form" onSubmit={handleSubmit}>
           <p className="form-title">Account Management</p>

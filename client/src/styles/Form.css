@@ -16,14 +16,6 @@
   border-radius: 5px;
 }
 
-.second-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 70px;
-  height: calc(100vh - 170px);
-}
-
 .form {
   display: flex;
   flex-direction: column;

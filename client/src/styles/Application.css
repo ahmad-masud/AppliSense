@@ -7,17 +7,35 @@
   flex-direction: column;
   gap: 10px;
   color: rgb(75, 75, 75);
+  word-break: break-all;
 }
 
 .application-header {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
 }
 
 .application-header-text {
-  width: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.application-company {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3f3d56;
+  width: 100%;
+}
+
+.application-position {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  width: 100%;
 }
 
 .application-divider {
@@ -27,24 +45,13 @@
   border: none;
 }
 
-.application-company {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #3f3d56;
-}
-
-.application-company,
-.application-position {
-  width: 100%;
-  white-space: normal;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
 .application-buttons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-end;
+  gap: 2px;
+  align-self: flex-start;
+  flex: 0.25;
 }
 
 .application-header-icon {
@@ -57,35 +64,26 @@
   justify-content: center;
 }
 
-.application-header-icon p {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
+.application-delete,
+.application-edit {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 200ms ease-in-out;
+  color: black;
 }
 
-.application-delete,
-.application-edit,
 .application-link {
   cursor: pointer;
   padding: 5px;
   border-radius: 4px;
-  color: white;
   transition: all 200ms ease-in-out;
-}
-
-.application-delete {
-  background: red;
-}
-
-.application-edit,
-.application-link {
-  background: gray;
 }
 
 .application-delete:hover,
 .application-edit:hover,
 .application-link:hover {
-  filter: brightness(0.75);
+  background: rgb(225, 225, 225);
 }
 
 .application-field {
@@ -100,7 +98,9 @@
   flex-wrap: wrap;
 }
 
-.application-status, .application-source, .application-workType {
+.application-status,
+.application-source,
+.application-workType {
   align-self: start;
   font-size: 1rem;
   color: rgb(100, 100, 255);

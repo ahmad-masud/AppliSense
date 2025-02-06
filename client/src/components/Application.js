@@ -27,17 +27,19 @@ function Application({ application }) {
     const now = new Date();
     const diffTime = now - date;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  
+
     if (diffDays > 30) {
       const options = { year: "numeric", month: "long", day: "2-digit" };
       return new Intl.DateTimeFormat("en-US", options).format(date);
     } else if (diffDays === 1) {
       return `${diffDays} day ago`;
-    } else {
+    } else if (diffDays > 0) {
       return `${diffDays} days ago`;
+    } else {
+      return "Today";
     }
   };
-  
+
   const formattedDate = application.dateApplied
     ? formatDate(application.dateApplied)
     : "No date provided";
@@ -70,30 +72,33 @@ function Application({ application }) {
     navigate(`/application/update/${application._id}`);
   };
 
-  const getBackgroundColor = (letter) => {
-    const colors = [
-      "#FF5733", "#33FF57", "#3357FF", "#FF33A8", "#A833FF", "#33FFF5", "#FF8C33",
-      "#57FF33", "#F5FF33", "#8C33FF", "#33A8FF", "#FF3380", "#33FFA8", "#A8FF33",
-      "#FF5733", "#5733FF", "#A833FF", "#FFC733", "#33FFC7", "#FF5733", "#33FF57",
-      "#C733FF", "#FF336A", "#336AFF", "#FF9F33", "#33FF9F"
-    ];
-  
-    const index = letter.toUpperCase().charCodeAt(0) - 65;
-    return colors[index] || "#000";
-  };
-
   return (
     <div className="application">
       <div className="application-header">
-        <div 
-          className="application-header-icon"
-          style={{ backgroundColor: getBackgroundColor(application.company[0]) }}
-        >
-          <p>{application.company[0]}</p>
-        </div>
         <div className="application-header-text">
           <p className="application-company">{application.company}</p>
-          <p className="application-position">{application.position}</p>
+          <p className="application-position">
+            {application.position}
+            {application.jobPostingURL && (
+              <BoxArrowUpRight
+                className="application-link"
+                size={15}
+                onClick={() => window.open(application.jobPostingURL, "_blank")}
+              />
+            )}
+          </p>
+        </div>
+        <div className="application-buttons">
+          <PencilFill
+            className="application-edit"
+            size={15}
+            onClick={handleEdit}
+          />
+          <Trash3Fill
+            className="application-delete"
+            size={15}
+            onClick={handleDelete}
+          />
         </div>
       </div>
       <hr className="application-divider" />
@@ -142,25 +147,6 @@ function Application({ application }) {
           )}
         </div>
       )}
-      <div className="application-buttons">
-        {application.jobPostingURL && (
-          <BoxArrowUpRight
-            className="application-link"
-            size={20}
-            onClick={() => window.open(application.jobPostingURL, "_blank")}
-          />
-        )}
-        <PencilFill
-          className="application-edit"
-          size={20}
-          onClick={handleEdit}
-        />
-        <Trash3Fill
-          className="application-delete"
-          size={20}
-          onClick={handleDelete}
-        />
-      </div>
     </div>
   );
 }
