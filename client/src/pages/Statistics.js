@@ -19,7 +19,7 @@ function Statistics() {
   const hasFetched = useRef(false);
 
   useEffect(() => {
-    document.title = "Dashboard | AppliSense";
+    document.title = "Statistics | AppliSense";
 
     const fetchApplications = async () => {
       const response = await fetch(
