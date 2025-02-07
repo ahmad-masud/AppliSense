@@ -1,5 +1,11 @@
 import "../styles/Navbar.css";
-import { BriefcaseFill, PersonFill, PieChartFill } from "react-bootstrap-icons";
+import {
+  BriefcaseFill,
+  PersonFill,
+  PieChartFill,
+  GridFill,
+  Table,
+} from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -21,6 +27,16 @@ function Navbar() {
           {!user && (
             <Link className="nav-link" to="/register">
               Register
+            </Link>
+          )}
+          {user && (
+            <Link to="/table" className="nav-button">
+              <Table size={20} />
+            </Link>
+          )}
+          {user && (
+            <Link to="/" className="nav-button">
+              <GridFill size={20} />
             </Link>
           )}
           {user && (

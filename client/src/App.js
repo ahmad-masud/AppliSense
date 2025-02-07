@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
+import Table from "./pages/Table";
 import Statistics from "./pages/Statistics";
 import ApplicationForm from "./pages/ApplicationForm";
 import Login from "./pages/Login";
@@ -25,6 +26,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={user ? <Dashboard /> : <Home />} />
+          <Route
+            path="/table"
+            element={user ? <Table /> : <Navigate to="/login" />}
+          />
           <Route
             path="/statistics"
             element={user ? <Statistics /> : <Navigate to="/login" />}

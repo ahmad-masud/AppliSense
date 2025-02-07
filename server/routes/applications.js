@@ -5,6 +5,7 @@ const {
   getApplication,
   createApplication,
   createApplications,
+  deleteApplications,
   deleteApplication,
   updateApplication,
 } = require("../controllers/applicationController");
@@ -19,6 +20,8 @@ router.get("/:id", getApplication);
 router.post("/create", createApplication);
 
 router.post("/createMultiple", createApplications);
+
+router.delete("/deleteMultiple", deleteApplications);
 
 router.delete("/delete/:id", deleteApplication);
 

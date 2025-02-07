@@ -131,6 +131,23 @@ const deleteApplication = async (req, res) => {
   }
 };
 
+const deleteApplications = async (req, res) => {
+  const { ids } = req.body;
+
+  if (!Array.isArray(ids) || ids.length === 0) {
+    return res
+      .status(400)
+      .json({ error: "Please provide an array of application IDs" });
+  }
+
+  try {
+    await Application.deleteMany({ _id: { $in: ids } });
+    res.status(200).json({ message: "Applications deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 const updateApplication = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -157,6 +174,7 @@ module.exports = {
   getApplication,
   createApplication,
   createApplications,
+  deleteApplications,
   deleteApplication,
   updateApplication,
 };

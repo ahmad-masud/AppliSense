@@ -25,6 +25,13 @@ export const applicationsReducer = (state, action) => {
           (application) => application._id !== action.payload
         ),
       };
+    case "DELETE_APPLICATIONS":
+      return {
+        ...state,
+        applications: state.applications.filter(
+          (application) => !action.payload.includes(application._id)
+        ),
+      };
     case "UPDATE_APPLICATION":
       return {
         ...state,

@@ -1,7 +1,7 @@
 import "../styles/Application.css";
 import { useState } from "react";
 import {
-  Trash3Fill,
+  TrashFill,
   PencilFill,
   BriefcaseFill,
   CalendarFill,
@@ -94,7 +94,7 @@ function Application({ application }) {
             size={15}
             onClick={handleEdit}
           />
-          <Trash3Fill
+          <TrashFill
             className="application-delete"
             size={15}
             onClick={handleDelete}

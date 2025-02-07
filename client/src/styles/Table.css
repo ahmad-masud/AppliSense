@@ -1,0 +1,104 @@
+.table-container {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  color: #273a51;
+}
+
+.table-container a {
+  color: #273a51;
+  padding: 5px;
+  transition: all 200ms ease-in-out;
+  border-radius: 5px;
+}
+
+.table-container a:hover {
+  background: #c3cbd1;
+}
+
+.applications-table {
+  width: calc(100% - 40px);
+  border-collapse: collapse;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.applications-table th,
+.applications-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.applications-table th {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.applications-table tr:nth-child(even) {
+  background-color: #e9edf0;
+  border-radius: 10px;
+}
+
+.applications-table th {
+  background-color: #e9edf0;
+}
+
+.th-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.delete-selected-button {
+  background-color: #e87070;
+  color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+
+.delete-selected-button:disabled {
+  cursor: not-allowed;
+}
+
+.delete-selected-button:enabled:hover {
+  filter: brightness(0.75);
+}
+
+.add-application-button {
+  background-color: #0060b9;
+  color: white !important;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+
+.add-application-button:hover {
+  filter: brightness(0.75);
+  background-color: #0060b9 !important;
+}
+
+.modify-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.modify-buttons button {
+  background: none;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+
+.modify-buttons button:hover {
+  background: #c3cbd1;
+}
