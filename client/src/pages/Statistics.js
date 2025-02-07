@@ -59,7 +59,7 @@ function Statistics() {
       .map(([name, value]) => ({ name, value }));
   };
 
-  const renderPieChart = (data, title) => {
+  const renderPieChart = (data, title, showLegend = true) => {
     if (data.length === 0) return null;
 
     return (
@@ -84,18 +84,24 @@ function Statistics() {
             ))}
           </Pie>
           <Tooltip />
-          <Legend />
+          {showLegend && <Legend />}
         </PieChart>
       </div>
     );
   };
 
+  const companyData = formatPieData(countOccurrences("company"));
+  const positionData = formatPieData(countOccurrences("position"));
+  const locationData = formatPieData(countOccurrences("location"));
   const statusData = formatPieData(countOccurrences("status"));
   const jobTypeData = formatPieData(countOccurrences("jobType"));
   const workTypeData = formatPieData(countOccurrences("workType"));
   const sourceData = formatPieData(countOccurrences("applicationSource"));
 
   const hasData =
+    companyData.length ||
+    positionData.length ||
+    locationData.length ||
     statusData.length ||
     jobTypeData.length ||
     workTypeData.length ||
@@ -105,6 +111,9 @@ function Statistics() {
     <div className="statistics">
       {hasData ? (
         <>
+          {renderPieChart(companyData, "Companies", false)}
+          {renderPieChart(positionData, "Positions", false)}
+          {renderPieChart(locationData, "Locations", false)}
           {renderPieChart(statusData, "Application Status")}
           {renderPieChart(jobTypeData, "Job Types")}
           {renderPieChart(workTypeData, "Work Types")}

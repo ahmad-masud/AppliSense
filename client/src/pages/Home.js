@@ -64,8 +64,8 @@ function Home() {
             <div className="feature-text-container">
               <p className="feature-title">
                 <EnvelopeFill />{" "}
-                <span style={{ color: "#0060B9" }}> Sort and filter</span>
-                your applications
+                <span style={{ color: "#0060B9" }}>Sort and filter</span> your
+                applications
               </p>
               <p className="feature-text">
                 Easily filter and sort job applications based on company,

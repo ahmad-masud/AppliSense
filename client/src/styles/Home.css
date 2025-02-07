@@ -107,7 +107,7 @@
 .feature-title {
   font-size: 2rem;
   font-weight: 700;
-  display: flex;
+  display: inline;
   align-items: center;
   gap: 10px;
   color: #273a51;

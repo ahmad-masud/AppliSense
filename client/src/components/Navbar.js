@@ -1,6 +1,6 @@
 import "../styles/Navbar.css";
 import {
-  BriefcaseFill,
+  BarChartSteps,
   PersonFill,
   PieChartFill,
   GridFill,
@@ -16,7 +16,7 @@ function Navbar() {
     <div className="navbar-container">
       <div className="navbar">
         <Link className="nav-title" to="/">
-          <BriefcaseFill size={30} /> AppliSense
+          <BarChartSteps size={25} /> AppliSense
         </Link>
         <div className="nav-links">
           {!user && (

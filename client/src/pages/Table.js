@@ -303,13 +303,15 @@ function Table() {
               <td>{app.company}</td>
               <td>
                 {app.position}{" "}
-                <a
-                  href={app.jobPostingURL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <BoxArrowUpRight size={15} />
-                </a>
+                {app.jobPostingURL && (
+                  <a
+                    href={app.jobPostingURL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <BoxArrowUpRight size={15} />
+                  </a>
+                )}
               </td>
               <td>{new Date(app.dateApplied).toLocaleDateString()}</td>
               <td>{app.location || "N/A"}</td>
