@@ -1,6 +1,6 @@
 import "../styles/Form.css";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useApplicationsContext } from "../hooks/useApplicationsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useAlerts } from "../hooks/useAlerts";
@@ -12,7 +12,7 @@ function ApplicationForm() {
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
   const [jobType, setJobType] = useState("");
-  const [location, setLocation] = useState("");
+  const [jobLocation, setJobLocation] = useState("");
   const [status, setStatus] = useState("Applied");
   const [dateApplied, setDateApplied] = useState("");
   const [jobPostingURL, setJobPostingURL] = useState("");
@@ -22,7 +22,7 @@ function ApplicationForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(isEditMode);
   const { addAlert } = useAlerts();
-
+  const location = useLocation();
   const { dispatch } = useApplicationsContext();
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -42,7 +42,7 @@ function ApplicationForm() {
           setCompany(data.company);
           setPosition(data.position);
           setJobType(data.jobType);
-          setLocation(data.location);
+          setJobLocation(data.location);
           setStatus(data.status);
           setDateApplied(data.dateApplied?.split("T")[0] || "");
           setJobPostingURL(data.jobPostingURL || "");
@@ -80,7 +80,7 @@ function ApplicationForm() {
       company,
       position,
       jobType,
-      location,
+      location: jobLocation,
       status,
       dateApplied,
       jobPostingURL,
@@ -115,7 +115,7 @@ function ApplicationForm() {
       } else {
         addAlert("Application updated successfully", "success");
       }
-      navigate("/");
+      navigate(location.state?.from || "/", { replace: true });
     } else {
       setError(data.error);
       addAlert("An error occurred", "error");
@@ -222,8 +222,8 @@ function ApplicationForm() {
               className="input"
               type="text"
               id="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              value={jobLocation}
+              onChange={(e) => setJobLocation(e.target.value)}
               placeholder="city, state, country"
             />
           </div>

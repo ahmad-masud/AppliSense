@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import { useApplicationsContext } from "../hooks/useApplicationsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { TrashFill } from "react-bootstrap-icons";
+import { useLocation } from "react-router-dom";
 
 function Dashboard() {
   const { applications, dispatch } = useApplicationsContext();
   const { user } = useAuthContext();
+  const location = useLocation();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [jobTypeFilter, setJobTypeFilter] = useState("");
@@ -217,7 +219,7 @@ function Dashboard() {
       </div>
 
       <div className="applications">
-        <Link className="application-placeholder" to="/application/create">
+        <Link className="application-placeholder" to="/application/create" state={{ from: location.pathname }}>
           <Plus size={75} /> Add Application
         </Link>
         {loading &&

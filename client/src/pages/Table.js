@@ -11,12 +11,14 @@ import {
   PlusLg,
   PencilFill,
 } from "react-bootstrap-icons";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import TableSkeleton from "../skeletons/TableSkeleton";
 
 function Table() {
   const { applications, dispatch } = useApplicationsContext();
   const { user } = useAuthContext();
+  const location = useLocation();
+
   const [sortConfig, setSortConfig] = useState({
     key: "dateApplied",
     direction: "desc",
@@ -206,7 +208,7 @@ function Table() {
             <option value="CareerBuilder">CareerBuilder</option>
             <option value="Other">Other</option>
           </select>
-          <Link to="/application/create" className="add-application-button ">
+          <Link to="/application/create" className="add-application-button" state={{ from: location.pathname }}>
             <PlusLg size={20} />
           </Link>
           <button
