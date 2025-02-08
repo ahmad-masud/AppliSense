@@ -81,8 +81,6 @@ function Statistics() {
     );
   };
 
-  if (loading) return <p className="chart-fallback">Loading statistics...</p>;
-
   if (!stats || stats.totalApplications === 0) {
     return <p className="chart-fallback">Add applications to see statistics</p>;
   }
