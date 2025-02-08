@@ -1,6 +1,5 @@
 import "../styles/Statistics.css";
-import { useEffect, useRef } from "react";
-import { useApplicationsContext } from "../hooks/useApplicationsContext";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
@@ -14,16 +13,16 @@ const COLORS = [
 ];
 
 function Statistics() {
-  const { applications, dispatch } = useApplicationsContext();
   const { user } = useAuthContext();
-  const hasFetched = useRef(false);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     document.title = "Statistics | AppliSense";
 
-    const fetchApplications = async () => {
+    const fetchStatistics = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications`,
+        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications/stats`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -34,33 +33,25 @@ function Statistics() {
       const data = await response.json();
 
       if (response.ok) {
-        dispatch({ type: "GET_APPLICATIONS", payload: data });
+        setStats(data);
       }
+      setLoading(false);
     };
 
-    if (user && !hasFetched.current) {
-      hasFetched.current = true;
-      fetchApplications();
+    if (user) {
+      fetchStatistics();
     }
-  }, [dispatch, user]);
+  }, [user]);
 
-  const countOccurrences = (field) => {
-    return applications.reduce((acc, app) => {
-      const key = app[field];
-      if (!key) return acc;
-      acc[key] = (acc[key] || 0) + 1;
-      return acc;
-    }, {});
-  };
-
-  const formatPieData = (counts) => {
-    return Object.entries(counts)
+  const formatPieData = (dataObj) => {
+    if (!dataObj) return [];
+    return Object.entries(dataObj)
       .filter(([_, value]) => value > 0)
       .map(([name, value]) => ({ name, value }));
   };
 
   const renderPieChart = (data, title, showLegend = true) => {
-    if (data.length === 0) return null;
+    if (!data || data.length === 0) return null;
 
     return (
       <div className="chart-container">
@@ -73,7 +64,6 @@ function Statistics() {
             cx="50%"
             cy="50%"
             outerRadius={100}
-            fill="#8884d8"
             label
           >
             {data.map((_, index) => (
@@ -90,38 +80,21 @@ function Statistics() {
     );
   };
 
-  const companyData = formatPieData(countOccurrences("company"));
-  const positionData = formatPieData(countOccurrences("position"));
-  const locationData = formatPieData(countOccurrences("location"));
-  const statusData = formatPieData(countOccurrences("status"));
-  const jobTypeData = formatPieData(countOccurrences("jobType"));
-  const workTypeData = formatPieData(countOccurrences("workType"));
-  const sourceData = formatPieData(countOccurrences("applicationSource"));
+  if (loading) return <p className="chart-fallback">Loading statistics...</p>;
 
-  const hasData =
-    companyData.length ||
-    positionData.length ||
-    locationData.length ||
-    statusData.length ||
-    jobTypeData.length ||
-    workTypeData.length ||
-    sourceData.length;
+  if (!stats || stats.totalApplications === 0) {
+    return <p className="chart-fallback">Add applications to see statistics</p>;
+  }
 
   return (
     <div className="statistics">
-      {hasData ? (
-        <>
-          {renderPieChart(companyData, "Companies", false)}
-          {renderPieChart(positionData, "Positions", false)}
-          {renderPieChart(locationData, "Locations", false)}
-          {renderPieChart(statusData, "Application Status")}
-          {renderPieChart(jobTypeData, "Job Types")}
-          {renderPieChart(workTypeData, "Work Types")}
-          {renderPieChart(sourceData, "Application Sources")}
-        </>
-      ) : (
-        <p className="chart-fallback">Add applications to see statistics</p>
-      )}
+      {renderPieChart(formatPieData(stats.companyData), "Companies", false)}
+      {renderPieChart(formatPieData(stats.positionData), "Positions", false)}
+      {renderPieChart(formatPieData(stats.locationData), "Locations", false)}
+      {renderPieChart(formatPieData(stats.statusData), "Application Status")}
+      {renderPieChart(formatPieData(stats.jobTypeData), "Job Types")}
+      {renderPieChart(formatPieData(stats.workTypeData), "Work Types")}
+      {renderPieChart(formatPieData(stats.sourceData), "Application Sources")}
     </div>
   );
 }

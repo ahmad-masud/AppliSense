@@ -1,6 +1,7 @@
 import "../styles/Table.css";
 import { useEffect, useState } from "react";
 import { useApplicationsContext } from "../hooks/useApplicationsContext";
+import Pagination from "../components/Pagination";
 import { useAuthContext } from "../hooks/useAuthContext";
 import {
   CaretUpFill,
@@ -27,6 +28,10 @@ function Table() {
   const [narrow, setNarrow] = useState(false);
   const [selectedApplications, setSelectedApplications] = useState(new Set());
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalResults, setTotalResults] = useState(0);
+  const [pageLimit, setPageLimit] = useState(20);
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,54 +47,49 @@ function Table() {
     document.title = "Table View | AppliSense";
 
     const fetchApplications = async () => {
+      const params = new URLSearchParams({
+        search: searchQuery,
+        jobType: jobTypeFilter,
+        status: statusFilter,
+        workType: workTypeFilter,
+        applicationSource: sourceFilter,
+        sort: `${sortConfig.key}-${sortConfig.direction}`,
+        page,
+        limit: pageLimit,
+      });
+
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications`,
+        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications?${params.toString()}`,
         {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          headers: { Authorization: `Bearer ${user.token}` },
         }
       );
 
       const data = await response.json();
+
       if (response.ok) {
-        dispatch({ type: "GET_APPLICATIONS", payload: data });
+        dispatch({ type: "GET_APPLICATIONS", payload: data.applications });
+        setTotalPages(data.totalPages);
+        setTotalResults(data.totalResults);
       }
     };
 
     if (user) {
       fetchApplications();
+      setSelectedApplications(new Set());
     }
-  }, [dispatch, user]);
-
-  const filteredApplications = applications
-    ?.filter(
-      (app) =>
-        app.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        app.position.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        app.location.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    .filter((app) => (jobTypeFilter ? app.jobType === jobTypeFilter : true))
-    .filter((app) => (statusFilter ? app.status === statusFilter : true))
-    .filter((app) => (workTypeFilter ? app.workType === workTypeFilter : true))
-    .filter((app) =>
-      sourceFilter ? app.applicationSource === sourceFilter : true
-    );
-
-  const sortedApplications = [...filteredApplications].sort((a, b) => {
-    if (sortConfig.key === "dateApplied") {
-      return sortConfig.direction === "asc"
-        ? new Date(a.dateApplied) - new Date(b.dateApplied)
-        : new Date(b.dateApplied) - new Date(a.dateApplied);
-    }
-    return sortConfig.direction === "asc"
-      ? a[sortConfig.key]
-          ?.toString()
-          .localeCompare(b[sortConfig.key]?.toString())
-      : b[sortConfig.key]
-          ?.toString()
-          .localeCompare(a[sortConfig.key]?.toString());
-  });
+  }, [
+    dispatch,
+    user,
+    searchQuery,
+    jobTypeFilter,
+    statusFilter,
+    workTypeFilter,
+    sourceFilter,
+    sortConfig,
+    page,
+    pageLimit,
+  ]);
 
   const handleSort = (key) => {
     setSortConfig((prevConfig) => ({
@@ -261,7 +261,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {sortedApplications.map((app) => (
+          {applications.map((app) => (
             <tr key={app._id}>
               <td>
                 <div className="modify-buttons">
@@ -323,6 +323,14 @@ function Table() {
           ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        limit={pageLimit}
+        totalResults={totalResults}
+        onPageChange={setPage}
+        onLimitChange={setPageLimit}
+      />
     </div>
   );
 }

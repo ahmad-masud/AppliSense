@@ -3,12 +3,69 @@ const mongoose = require("mongoose");
 
 const getApplications = async (req, res) => {
   const user_id = req.user._id;
+  const {
+    search,
+    jobType,
+    status,
+    workType,
+    applicationSource,
+    sort,
+    page = 1,
+    limit = 20,
+  } = req.query;
 
   try {
-    const applications = await Application.find({ user_id }).sort({
-      createdAt: -1,
+    let query = { user_id };
+
+    if (jobType) query.jobType = jobType;
+    if (status) query.status = status;
+    if (workType) query.workType = workType;
+    if (applicationSource) query.applicationSource = applicationSource;
+
+    if (search) {
+      query.$or = [
+        { company: { $regex: search, $options: "i" } },
+        { position: { $regex: search, $options: "i" } },
+        { location: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    let sortOptions = { dateApplied: -1 };
+    if (sort === "date-asc") sortOptions = { dateApplied: 1 };
+    if (sort === "date-desc") sortOptions = { dateApplied: -1 };
+    if (sort === "company-asc") sortOptions = { company: 1 };
+    if (sort === "company-desc") sortOptions = { company: -1 };
+    if (sort === "position-asc") sortOptions = { position: 1 };
+    if (sort === "position-desc") sortOptions = { position: -1 };
+    if (sort === "location-asc") sortOptions = { location: 1 };
+    if (sort === "location-desc") sortOptions = { location: -1 };
+    if (sort === "jobType-asc") sortOptions = { jobType: 1 };
+    if (sort === "jobType-desc") sortOptions = { jobType: -1 };
+    if (sort === "status-asc") sortOptions = { status: 1 };
+    if (sort === "status-desc") sortOptions = { status: -1 };
+    if (sort === "source-asc") sortOptions = { applicationSource: 1 };
+    if (sort === "source-desc") sortOptions = { applicationSource: -1 };
+    if (sort === "workType-asc") sortOptions = { workType: 1 };
+    if (sort === "workType-desc") sortOptions = { workType: -1 };
+
+    const pageNumber = parseInt(page);
+    const pageLimit = parseInt(limit);
+    const skip = (pageNumber - 1) * pageLimit;
+
+    const applications = await Application.find(query)
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(pageLimit);
+
+    const totalApplications = await Application.countDocuments(query);
+
+    res.status(200).json({
+      applications,
+      totalResults: totalApplications,
+      totalPages: Math.ceil(totalApplications / pageLimit),
+      currentPage: pageNumber,
+      limit: pageLimit,
     });
-    res.status(200).json(applications);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -26,6 +83,57 @@ const getApplication = async (req, res) => {
       return res.status(404).json({ error: "Application not found" });
     }
     res.status(200).json(application);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const getApplicationStats = async (req, res) => {
+  const user_id = req.user._id;
+
+  try {
+    const stats = await Application.aggregate([
+      { $match: { user_id } },
+      {
+        $group: {
+          _id: null,
+          totalApplications: { $sum: 1 },
+          companyCounts: { $push: "$company" },
+          positionCounts: { $push: "$position" },
+          locationCounts: { $push: "$location" },
+          statusCounts: { $push: "$status" },
+          jobTypeCounts: { $push: "$jobType" },
+          workTypeCounts: { $push: "$workType" },
+          sourceCounts: { $push: "$applicationSource" },
+        },
+      },
+    ]);
+
+    if (stats.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "No applications found", stats: {} });
+    }
+
+    const formatCounts = (items) =>
+      items.reduce((acc, item) => {
+        if (!item) return acc;
+        acc[item] = (acc[item] || 0) + 1;
+        return acc;
+      }, {});
+
+    const responseStats = {
+      totalApplications: stats[0].totalApplications,
+      companyData: formatCounts(stats[0].companyCounts),
+      positionData: formatCounts(stats[0].positionCounts),
+      locationData: formatCounts(stats[0].locationCounts),
+      statusData: formatCounts(stats[0].statusCounts),
+      jobTypeData: formatCounts(stats[0].jobTypeCounts),
+      workTypeData: formatCounts(stats[0].workTypeCounts),
+      sourceData: formatCounts(stats[0].sourceCounts),
+    };
+
+    res.status(200).json(responseStats);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -172,6 +280,7 @@ const updateApplication = async (req, res) => {
 module.exports = {
   getApplications,
   getApplication,
+  getApplicationStats,
   createApplication,
   createApplications,
   deleteApplications,

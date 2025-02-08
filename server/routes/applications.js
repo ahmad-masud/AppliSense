@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   getApplications,
   getApplication,
+  getApplicationStats,
   createApplication,
   createApplications,
   deleteApplications,
@@ -14,6 +15,8 @@ const requireAuth = require("../middleware/requireAuth");
 router.use(requireAuth);
 
 router.get("/", getApplications);
+
+router.get("/stats", getApplicationStats);
 
 router.get("/:id", getApplication);
 

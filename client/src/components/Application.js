@@ -13,7 +13,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAlerts } from "../hooks/useAlerts";
 
-function Application({ application }) {
+function Application({ application, onSelect, selectedApplications }) {
   const navigate = useNavigate();
   const { dispatch } = useApplicationsContext();
   const { user } = useAuthContext();
@@ -89,6 +89,11 @@ function Application({ application }) {
           </p>
         </div>
         <div className="application-buttons">
+          <input
+            type="checkbox"
+            checked={selectedApplications.has(application._id)}
+            onChange={() => onSelect(application._id)}
+          />
           <PencilFill
             className="application-edit"
             size={15}
