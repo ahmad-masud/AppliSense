@@ -12,6 +12,7 @@ import {
   PencilFill,
 } from "react-bootstrap-icons";
 import { useNavigate, Link } from "react-router-dom";
+import TableSkeleton from "../skeletons/TableSkeleton";
 
 function Table() {
   const { applications, dispatch } = useApplicationsContext();
@@ -32,6 +33,7 @@ function Table() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [pageLimit, setPageLimit] = useState(20);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,6 +74,8 @@ function Table() {
         setTotalPages(data.totalPages);
         setTotalResults(data.totalResults);
       }
+
+      setLoading(false);
     };
 
     if (user) {
@@ -214,123 +218,136 @@ function Table() {
           </button>
         </div>
       </div>
-      <table className="applications-table">
-        <thead>
-          <tr>
-            <th>
-              <span className="th-text">Modify</span>
-            </th>
-            <th onClick={() => handleSort("company")}>
-              <span className="th-text">Company {getSortIcon("company")}</span>
-            </th>
-            <th onClick={() => handleSort("position")}>
-              <span className="th-text">
-                Position {getSortIcon("position")}
-              </span>
-            </th>
-            <th onClick={() => handleSort("dateApplied")}>
-              <span className="th-text">Date {getSortIcon("dateApplied")}</span>
-            </th>
-            <th onClick={() => handleSort("location")}>
-              <span className="th-text">
-                Location {getSortIcon("location")}
-              </span>
-            </th>
-            {!narrow && (
-              <th onClick={() => handleSort("jobType")}>
-                <span className="th-text">Job {getSortIcon("jobType")}</span>
+      {loading && <TableSkeleton rows={pageLimit} />}
+      {!loading && (
+        <table className="applications-table">
+          <thead>
+            <tr>
+              <th>
+                <span className="th-text">Modify</span>
               </th>
-            )}
-            {!narrow && (
-              <th onClick={() => handleSort("status")}>
-                <span className="th-text">Status {getSortIcon("status")}</span>
-              </th>
-            )}
-            {!narrow && (
-              <th onClick={() => handleSort("applicationSource")}>
+              <th onClick={() => handleSort("company")}>
                 <span className="th-text">
-                  Source {getSortIcon("applicationSource")}
+                  Company {getSortIcon("company")}
                 </span>
               </th>
-            )}
-            {!narrow && (
-              <th onClick={() => handleSort("workType")}>
-                <span className="th-text">Work {getSortIcon("workType")}</span>
+              <th onClick={() => handleSort("position")}>
+                <span className="th-text">
+                  Position {getSortIcon("position")}
+                </span>
               </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {applications.map((app) => (
-            <tr key={app._id}>
-              <td>
-                <div className="modify-buttons">
-                  <input
-                    type="checkbox"
-                    checked={selectedApplications.has(app._id)}
-                    onChange={() => handleSelect(app._id)}
-                  />
-                  <button
-                    onClick={() => navigate(`/application/update/${app._id}`)}
-                  >
-                    <PencilFill size={15} />
-                  </button>
-                  <button
-                    onClick={async () => {
-                      if (
-                        !window.confirm(
-                          "Are you sure you want to delete this application?"
-                        )
-                      )
-                        return;
-                      await fetch(
-                        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications/delete/${app._id}`,
-                        {
-                          method: "DELETE",
-                          headers: { Authorization: `Bearer ${user.token}` },
-                        }
-                      );
-                      dispatch({
-                        type: "DELETE_APPLICATION",
-                        payload: app._id,
-                      });
-                    }}
-                  >
-                    <TrashFill size={15} />
-                  </button>
-                </div>
-              </td>
-              <td>{app.company}</td>
-              <td>
-                {app.position}{" "}
-                {app.jobPostingURL && (
-                  <a
-                    href={app.jobPostingURL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <BoxArrowUpRight size={15} />
-                  </a>
-                )}
-              </td>
-              <td>{new Date(app.dateApplied).toLocaleDateString()}</td>
-              <td>{app.location || "N/A"}</td>
-              {!narrow && <td>{app.jobType || "N/A"}</td>}
-              {!narrow && <td>{app.status}</td>}
-              {!narrow && <td>{app.applicationSource || "N/A"}</td>}
-              {!narrow && <td>{app.workType || "N/A"}</td>}
+              <th onClick={() => handleSort("dateApplied")}>
+                <span className="th-text">
+                  Date {getSortIcon("dateApplied")}
+                </span>
+              </th>
+              <th onClick={() => handleSort("location")}>
+                <span className="th-text">
+                  Location {getSortIcon("location")}
+                </span>
+              </th>
+              {!narrow && (
+                <th onClick={() => handleSort("jobType")}>
+                  <span className="th-text">Job {getSortIcon("jobType")}</span>
+                </th>
+              )}
+              {!narrow && (
+                <th onClick={() => handleSort("status")}>
+                  <span className="th-text">
+                    Status {getSortIcon("status")}
+                  </span>
+                </th>
+              )}
+              {!narrow && (
+                <th onClick={() => handleSort("applicationSource")}>
+                  <span className="th-text">
+                    Source {getSortIcon("applicationSource")}
+                  </span>
+                </th>
+              )}
+              {!narrow && (
+                <th onClick={() => handleSort("workType")}>
+                  <span className="th-text">
+                    Work {getSortIcon("workType")}
+                  </span>
+                </th>
+              )}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        limit={pageLimit}
-        totalResults={totalResults}
-        onPageChange={setPage}
-        onLimitChange={setPageLimit}
-      />
+          </thead>
+          <tbody>
+            {applications.map((app) => (
+              <tr key={app._id}>
+                <td>
+                  <div className="modify-buttons">
+                    <input
+                      type="checkbox"
+                      checked={selectedApplications.has(app._id)}
+                      onChange={() => handleSelect(app._id)}
+                    />
+                    <button
+                      onClick={() => navigate(`/application/update/${app._id}`)}
+                    >
+                      <PencilFill size={15} />
+                    </button>
+                    <button
+                      onClick={async () => {
+                        if (
+                          !window.confirm(
+                            "Are you sure you want to delete this application?"
+                          )
+                        )
+                          return;
+                        await fetch(
+                          `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/applications/delete/${app._id}`,
+                          {
+                            method: "DELETE",
+                            headers: { Authorization: `Bearer ${user.token}` },
+                          }
+                        );
+                        dispatch({
+                          type: "DELETE_APPLICATION",
+                          payload: app._id,
+                        });
+                      }}
+                    >
+                      <TrashFill size={15} />
+                    </button>
+                  </div>
+                </td>
+                <td>{app.company}</td>
+                <td>
+                  {app.position}{" "}
+                  {app.jobPostingURL && (
+                    <a
+                      href={app.jobPostingURL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <BoxArrowUpRight size={15} />
+                    </a>
+                  )}
+                </td>
+                <td>{new Date(app.dateApplied).toLocaleDateString()}</td>
+                <td>{app.location || "N/A"}</td>
+                {!narrow && <td>{app.jobType || "N/A"}</td>}
+                {!narrow && <td>{app.status}</td>}
+                {!narrow && <td>{app.applicationSource || "N/A"}</td>}
+                {!narrow && <td>{app.workType || "N/A"}</td>}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {totalResults > 20 && !loading && (
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          limit={pageLimit}
+          totalResults={totalResults}
+          onPageChange={setPage}
+          onLimitChange={setPageLimit}
+        />
+      )}
     </div>
   );
 }

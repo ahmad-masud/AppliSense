@@ -2,13 +2,11 @@ import "../styles/Form.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
-import { useAlerts } from "../hooks/useAlerts";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, loginWithOTP, error, isLoading } = useLogin();
-  const { addAlert } = useAlerts();
 
   useEffect(() => {
     document.title = "Login | AppliSense";
@@ -18,16 +16,12 @@ function Login() {
     e.preventDefault();
 
     await login(email, password);
-
-    addAlert("Logged in successfully", "success");
   };
 
   const handleReset = async (e) => {
     e.preventDefault();
 
     await loginWithOTP(email);
-
-    addAlert("Logged in successfully", "success");
   };
 
   return (

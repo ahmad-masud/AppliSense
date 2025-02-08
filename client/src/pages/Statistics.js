@@ -94,7 +94,11 @@ function Statistics() {
       {renderPieChart(formatPieData(stats.statusData), "Application Status")}
       {renderPieChart(formatPieData(stats.jobTypeData), "Job Types")}
       {renderPieChart(formatPieData(stats.workTypeData), "Work Types")}
-      {renderPieChart(formatPieData(stats.sourceData), "Application Sources")}
+      {renderPieChart(
+        formatPieData(stats.sourceData),
+        "Application Sources",
+        false
+      )}
     </div>
   );
 }

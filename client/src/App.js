@@ -19,6 +19,8 @@ import Alerts from "./components/Alerts";
 function App() {
   const { user } = useAuthContext();
 
+  if (user === undefined) return null;
+
   return (
     <div className="app">
       <AlertsProvider>

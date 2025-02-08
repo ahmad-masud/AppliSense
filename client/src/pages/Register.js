@@ -2,7 +2,6 @@ import "../styles/Form.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRegister } from "../hooks/useRegister";
-import { useAlerts } from "../hooks/useAlerts";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -11,7 +10,6 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { register, error, isLoading } = useRegister();
-  const { addAlert } = useAlerts();
 
   useEffect(() => {
     document.title = "Register | AppliSense";
@@ -21,8 +19,6 @@ function Register() {
     e.preventDefault();
 
     await register(firstName, lastName, email, password, confirmPassword);
-
-    addAlert("Registered in successfully", "success");
   };
 
   return (

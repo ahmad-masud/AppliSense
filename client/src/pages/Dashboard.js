@@ -2,6 +2,7 @@ import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
 import Application from "../components/Application";
 import Pagination from "../components/Pagination";
+import ApplicationSkeleton from "../skeletons/ApplicationSkeleton";
 import { Plus } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { useApplicationsContext } from "../hooks/useApplicationsContext";
@@ -23,6 +24,7 @@ function Dashboard() {
   const [totalResults, setTotalResults] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [pageLimit, setPageLimit] = useState(20);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     document.title = "Dashboard | AppliSense";
@@ -55,6 +57,8 @@ function Dashboard() {
         setTotalResults(data.totalResults);
         setTotalPages(data.totalPages);
       }
+
+      setLoading(false);
     };
 
     if (user) {
@@ -213,10 +217,15 @@ function Dashboard() {
       </div>
 
       <div className="applications">
+        {loading &&
+          [...Array(pageLimit)].map((_, index) => (
+            <ApplicationSkeleton key={index} />
+          ))}
         <Link className="application-placeholder" to="/application/create">
           <Plus size={75} /> Add Application
         </Link>
-        {applications.length > 0 &&
+        {!loading &&
+          applications.length > 0 &&
           applications.map((application) => (
             <Application
               key={application._id}
@@ -226,14 +235,16 @@ function Dashboard() {
             />
           ))}
       </div>
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        limit={pageLimit}
-        totalResults={totalResults}
-        onPageChange={setPage}
-        onLimitChange={setPageLimit}
-      />
+      {totalResults > 20 && !loading && (
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          limit={pageLimit}
+          totalResults={totalResults}
+          onPageChange={setPage}
+          onLimitChange={setPageLimit}
+        />
+      )}
     </div>
   );
 }
