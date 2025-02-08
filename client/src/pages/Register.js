@@ -101,6 +101,12 @@ function Register() {
               Login
             </Link>
           </p>
+          <p className="form-link">
+            By making an account you agree to our{" "}
+            <Link className="link" to="/terms">
+              Terms of Service
+            </Link>
+          </p>
         </form>
       </div>
     </div>

@@ -13,10 +13,19 @@
   width: calc(100% - 40px);
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 
 .footer-text {
   color: #273a51;
+  display: flex;
+  gap: 10px;
+}
+
+.footer-link {
+  color: dodgerblue;
+  text-decoration: none;
 }

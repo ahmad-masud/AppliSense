@@ -1,0 +1,50 @@
+.tos-container, .privacy-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 70px;
+    margin-bottom: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  .tos-title, .privacy-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .tos-subtitle, .privacy-subtitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #444;
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+  }
+  
+  .tos-text, .privacy-text {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  @media (max-width: 600px) {
+    .tos-container, .privacy-container {
+      padding: 15px;
+    }
+  
+    .tos-title, .privacy-title {
+      font-size: 24px;
+    }
+  
+    .tos-subtitle, .privacy-subtitle {
+      font-size: 20px;
+    }
+  
+    .tos-text, .privacy-text {
+      font-size: 14px;
+    }
+  }
+  

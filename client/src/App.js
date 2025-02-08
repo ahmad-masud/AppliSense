@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Account from "./pages/Account";
 import ChangePassword from "./pages/ChangePassword";
+import TermsOfService from "./pages/TermsOfServices";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
@@ -60,6 +62,8 @@ function App() {
             path="/changePassword"
             element={user ? <ChangePassword /> : <Navigate to="/login" />}
           />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
