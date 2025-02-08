@@ -50,6 +50,8 @@ function Table() {
   useEffect(() => {
     document.title = "Table View | AppliSense";
 
+    setLoading(true);
+
     const fetchApplications = async () => {
       const params = new URLSearchParams({
         search: searchQuery,

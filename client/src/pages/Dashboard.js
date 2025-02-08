@@ -31,6 +31,8 @@ function Dashboard() {
   useEffect(() => {
     document.title = "Dashboard | AppliSense";
 
+    setLoading(true);
+
     const fetchApplications = async () => {
       const params = new URLSearchParams({
         search: searchQuery,
