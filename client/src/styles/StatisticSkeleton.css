@@ -1,0 +1,22 @@
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.statistic-skeleton {
+  background: linear-gradient(90deg, #e9edf0 25%, #dce1e5 50%, #e9edf0 75%);
+  animation: shimmer 1.5s infinite linear;
+  background-size: 200% 100%;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #575757;
+  height: 325px;
+  width: 360px;
+}

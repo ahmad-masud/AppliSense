@@ -217,13 +217,13 @@ function Dashboard() {
       </div>
 
       <div className="applications">
+        <Link className="application-placeholder" to="/application/create">
+          <Plus size={75} /> Add Application
+        </Link>
         {loading &&
           [...Array(pageLimit)].map((_, index) => (
             <ApplicationSkeleton key={index} />
           ))}
-        <Link className="application-placeholder" to="/application/create">
-          <Plus size={75} /> Add Application
-        </Link>
         {!loading &&
           applications.length > 0 &&
           applications.map((application) => (

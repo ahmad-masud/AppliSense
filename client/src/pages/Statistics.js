@@ -2,6 +2,7 @@ import "../styles/Statistics.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import StatisticSkeleton from "../skeletons/StatisticSkeleton";
 
 const COLORS = [
   "#0088FE",
@@ -88,17 +89,27 @@ function Statistics() {
 
   return (
     <div className="statistics">
-      {renderPieChart(formatPieData(stats.companyData), "Companies", false)}
-      {renderPieChart(formatPieData(stats.positionData), "Positions", false)}
-      {renderPieChart(formatPieData(stats.locationData), "Locations", false)}
-      {renderPieChart(formatPieData(stats.statusData), "Application Status")}
-      {renderPieChart(formatPieData(stats.jobTypeData), "Job Types")}
-      {renderPieChart(formatPieData(stats.workTypeData), "Work Types")}
-      {renderPieChart(
-        formatPieData(stats.sourceData),
-        "Application Sources",
-        false
-      )}
+      {loading &&
+        [...Array(7)].map((_, index) => <StatisticSkeleton key={index} />)}
+
+      {!loading &&
+        renderPieChart(formatPieData(stats.companyData), "Companies", false)}
+      {!loading &&
+        renderPieChart(formatPieData(stats.positionData), "Positions", false)}
+      {!loading &&
+        renderPieChart(formatPieData(stats.locationData), "Locations", false)}
+      {!loading &&
+        renderPieChart(formatPieData(stats.statusData), "Application Status")}
+      {!loading &&
+        renderPieChart(formatPieData(stats.jobTypeData), "Job Types")}
+      {!loading &&
+        renderPieChart(formatPieData(stats.workTypeData), "Work Types")}
+      {!loading &&
+        renderPieChart(
+          formatPieData(stats.sourceData),
+          "Application Sources",
+          false
+        )}
     </div>
   );
 }
