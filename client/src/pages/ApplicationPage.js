@@ -92,7 +92,9 @@ const ApplicationPage = () => {
     }
   };
 
-  if (infoLoading || statsLoading) return null;
+  if (infoLoading || statsLoading) return (
+    <div className="application-page-container loading"></div>
+  );
   if (error) return null;
   if (!application) return null;
 

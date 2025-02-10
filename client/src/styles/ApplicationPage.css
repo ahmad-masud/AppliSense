@@ -1,8 +1,18 @@
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .application-page-container {
   max-width: 1200px;
   width: calc(100% - 60px);
   margin: 0 auto;
   margin-top: 70px;
+  margin-bottom: 20px;
   padding: 20px;
   background: #ffffff;
   border-radius: 10px;
@@ -10,6 +20,13 @@
   display: flex;
   gap: 20px;
   color: #273a51;
+}
+
+.application-page-container.loading {
+  background: linear-gradient(90deg, #e9edf0 25%, #dce1e5 50%, #e9edf0 75%);
+  animation: shimmer 1.5s infinite linear;
+  background-size: 200% 100%;
+  height: calc(100vh - 230px);
 }
 
 .application-page-info {
