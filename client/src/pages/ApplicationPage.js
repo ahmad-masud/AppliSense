@@ -89,6 +89,7 @@ const ApplicationPage = () => {
     if (response.ok) {
       dispatch({ type: "DELETE_APPLICATION", payload: application._id });
       addAlert("Application deleted successfully", "success");
+      navigate(location.state?.from || "/", { replace: true });
     }
   };
 

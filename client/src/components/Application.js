@@ -48,7 +48,7 @@ function Application({ application, onSelect, selectedApplications }) {
   return (
     <div
       className="application"
-      onClick={() => navigate(`/application/${application._id}`)}
+      onClick={() => navigate(`/application/${application._id}`, {state: { from: location.pathname }})}
     >
       <div className="application-header">
         <div className="application-header-text">
