@@ -83,14 +83,17 @@ Ensure you have the following installed:
 
 ## API Endpoints
 
-### **Authentication**
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| **POST** | `/users/register` | Register a new user |
-| **POST** | `/users/login` | Login an existing user |
-| **DELETE** | `/users/delete` | Delete a user account |
-| **PUT** | `/users/update` | Update user details |
-| **PUT** | `/users/changePassword` | Change user password |
+### **Authentication**  
+| Method | Endpoint | Description |  
+|--------|----------|-------------|  
+| **POST** | `/users/register` | Register a new user |  
+| **POST** | `/users/login` | Login an existing user |  
+| **POST** | `/users/loginWithOTP` | Login using OTP |  
+| **DELETE** | `/users/delete` | Delete a user account |  
+| **PUT** | `/users/update` | Update user details |  
+| **PUT** | `/users/changePassword` | Change user password |  
+| **POST** | `/users/sendCode` | Send OTP code to user |  
+| **POST** | `/users/verifyCode` | Verify OTP code |  
 
 ### **Applications API**
 | Method | Endpoint | Description |
