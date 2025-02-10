@@ -1,116 +1,114 @@
 # AppliSense
 
-AppliSense is a simple yet powerful application app built using the MERN stack (MongoDB, Express, React, Node.js). With AppliSense, users can create applications with a company, roles and progress tracking, and see statistics.
+AppliSense is a powerful application tracker built using the **MERN stack** (MongoDB, Express, React, Node.js). It helps users track job applications, manage progress, and view insightful statistics.
 
 ## Features
 
-- **User Registration & Authentication**: Secure authentication system using JWT tokens.
-- **Create Applications**: Create applications with a title, date, and time.
-- **Email Notifications**: Receive application notifications via email at the specified date and time.
-- **Manage Applications**: Edit or delete existing applications.
+- **User Authentication**: Secure JWT-based authentication.
+- **Application Tracking**: Track applications with company names, job roles, and statuses.
+- **Dashboard & Statistics**: Visualize application trends with pie charts.
+- **CRUD Operations**: Create, update, and delete applications easily.
 
 ## Technology Stack
 
-- **Frontend**: React.js,
+- **Frontend**: React.js
 - **Backend**: Node.js, Express.js, Mongoose
 - **Database**: MongoDB
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or later)
-- MongoDB (Local or Atlas)
+Ensure you have the following installed:
+
+- **Node.js** (v14 or later)
+- **MongoDB** (Local instance or MongoDB Atlas)
 
 ### Installation
 
-1. **Clone the Repository:**
+1. **Clone the Repository**:
 
    ```bash
    git clone https://github.com/ahmad-masud/AppliSense.git
    cd AppliSense
    ```
 
-2. **Backend Setup:**
+2. **Install Dependencies**:
 
-   - Navigate to the server folder:
+   ```bash
+   npm run install-dependencies
+   ```
 
-     ```bash
-     cd server
-     ```
+3. **Backend Setup**:
 
-   - Install dependencies:
-
-     ```bash
-     npm install
-     ```
-
-   - Create a `.env` file in the `server` directory with the following variables:
+   - Navigate to the `server` directory.
+   - Create a `.env` file and add the following:
 
      ```env
      MONGODB_URI=<your_mongodb_uri>
      TOKEN_SECRET=<your_jwt_secret>
-     EMAIL_USER=<your_OTP_email>
-     EMAIL_PASS=<your_OTP_password>
-     IS_LOCAL=<bool>
+     EMAIL_USER=<your_email>
+     EMAIL_PASS=<your_email_password>
+     IS_LOCAL=<true/false>
      ```
 
-   - Start the backend server:
+4. **Frontend Setup**:
 
-     ```bash
-     npm start
-     ```
-
-3. **Frontend Setup:**
-
-   - Navigate to the client folder:
-
-     ```bash
-     cd ../client
-     ```
-
-   - Install dependencies:
-
-     ```bash
-     npm install
-     ```
-
-   - Create a `.env` file in the `server` directory with the following variables:
+   - Navigate to the `client` directory.
+   - Create a `.env` file with:
 
      ```env
-     REACT_APP_API_BASE_URL=<your_backend_server>
+     REACT_APP_API_BASE_URL=<your_backend_url>
      ```
 
-   - Start the frontend development server:
+5. **Start the Application**:
+
+   - Run both frontend and backend:
 
      ```bash
      npm start
      ```
 
-### Usage
+---
 
-1. Register or log in to the application.
-2. Create a new application by providing a title, date, and time.
-3. At the specified time, receive an email notification with your application details.
+## Usage
+
+1. **Sign up or log in** to access the dashboard.
+2. **Add new applications**, specifying the company, role, status, and applied date.
+3. **View statistics** about your applications using interactive charts.
+
+---
 
 ## API Endpoints
 
-### Authentication
+### **Authentication**  
+| Method | Endpoint | Description |  
+|--------|----------|-------------|  
+| **POST** | `/users/register` | Register a new user |  
+| **POST** | `/users/login` | Login an existing user |  
+| **POST** | `/users/loginWithOTP` | Login using OTP |  
+| **DELETE** | `/users/delete` | Delete a user account |  
+| **PUT** | `/users/update` | Update user details |  
+| **PUT** | `/users/changePassword` | Change user password |  
+| **POST** | `/users/sendCode` | Send OTP code to user |  
+| **POST** | `/users/verifyCode` | Verify OTP code |  
 
-- **POST /users/register**: Register a new user
-- **POST /users/login**: Login an existing user
-- **DELETE /users/delete**: Delete an existing user
-- **PUT /users/update**: Update an existing user
-- **PUT /users/changePassword**: Change the password of an existing user
+### **Applications API**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| **GET** | `/applications/` | Retrieve all applications for the logged-in user |
+| **GET** | `/applications/stats` | Fetch application statistics |
+| **GET** | `/applications/:id` | Retrieve a specific application |
+| **POST** | `/applications/create` | Create a new application |
+| **POST** | `/applications/createMultiple` | Create multiple applications at once |
+| **DELETE** | `/applications/deleteMultiple` | Delete multiple applications |
+| **DELETE** | `/applications/delete/:id` | Delete a specific application |
+| **PATCH** | `/applications/update/:id` | Update an application |
 
-### Applications
-
-- **GET /applications**: Get all applications for the logged-in user
-- **GET /applications/:id**: Get a application for the logged-in user
-- **POST /applications/create**: Create a new application
-- **PATCH /applications/:id**: Update an existing application
-- **DELETE /applications/delete/:id**: Delete a application
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
