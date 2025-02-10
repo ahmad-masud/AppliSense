@@ -30,21 +30,18 @@ AppliSense is a simple yet powerful application app built using the MERN stack (
    git clone https://github.com/ahmad-masud/AppliSense.git
    cd AppliSense
    ```
+2. **Install Dependencies**
 
-2. **Backend Setup:**
+   - Install Dependencies for Frontend and Backend
+  
+     ```bash
+     npm run install-dependencies
+     ```
+
+4. **Backend Setup:**
 
    - Navigate to the server folder:
-
-     ```bash
-     cd server
-     ```
-
-   - Install dependencies:
-
-     ```bash
-     npm install
-     ```
-
+     
    - Create a `.env` file in the `server` directory with the following variables:
 
      ```env
@@ -55,34 +52,20 @@ AppliSense is a simple yet powerful application app built using the MERN stack (
      IS_LOCAL=<bool>
      ```
 
-   - Start the backend server:
-
-     ```bash
-     npm start
-     ```
-
-3. **Frontend Setup:**
+5. **Frontend Setup:**
 
    - Navigate to the client folder:
-
-     ```bash
-     cd ../client
-     ```
-
-   - Install dependencies:
-
-     ```bash
-     npm install
-     ```
-
+  
    - Create a `.env` file in the `server` directory with the following variables:
 
      ```env
      REACT_APP_API_BASE_URL=<your_backend_server>
      ```
 
-   - Start the frontend development server:
+6. **Start Frontend and Backend**
 
+   - Start the client and server concurrently
+  
      ```bash
      npm start
      ```
