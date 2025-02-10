@@ -221,8 +221,12 @@ function Dashboard() {
       </div>
 
       <div className="applications">
-        <Link className="application-placeholder" to="/application/create" state={{ from: location.pathname }}>
-          <Plus size={75} /> Add Application
+        <Link
+          className="application-placeholder"
+          to="/application/create"
+          state={{ from: location.pathname }}
+        >
+          <Plus size={50} /> Add Application
         </Link>
         {loading &&
           [...Array(pageLimit)].map((_, index) => (

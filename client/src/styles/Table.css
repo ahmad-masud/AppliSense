@@ -26,6 +26,10 @@
   overflow: hidden;
 }
 
+.applications-table tr {
+  cursor: pointer;
+}
+
 .applications-table th,
 .applications-table td {
   padding: 12px;
@@ -87,7 +91,6 @@
 
 .modify-buttons {
   display: flex;
-  gap: 5px;
 }
 
 .modify-buttons button {

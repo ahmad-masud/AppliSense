@@ -210,7 +210,11 @@ function Table() {
             <option value="CareerBuilder">CareerBuilder</option>
             <option value="Other">Other</option>
           </select>
-          <Link to="/application/create" className="add-application-button" state={{ from: location.pathname }}>
+          <Link
+            to="/application/create"
+            className="add-application-button"
+            state={{ from: location.pathname }}
+          >
             <PlusLg size={20} />
           </Link>
           <button
@@ -240,11 +244,13 @@ function Table() {
                   Position {getSortIcon("position")}
                 </span>
               </th>
-              <th onClick={() => handleSort("dateApplied")}>
-                <span className="th-text">
-                  Date {getSortIcon("dateApplied")}
-                </span>
-              </th>
+              {!narrow && (
+                <th onClick={() => handleSort("dateApplied")}>
+                  <span className="th-text">
+                    Date {getSortIcon("dateApplied")}
+                  </span>
+                </th>
+              )}
               <th onClick={() => handleSort("location")}>
                 <span className="th-text">
                   Location {getSortIcon("location")}
@@ -280,21 +286,32 @@ function Table() {
           </thead>
           <tbody>
             {applications.map((app) => (
-              <tr key={app._id}>
+              <tr
+                key={app._id}
+                onClick={() => navigate(`/application/${app._id}`)}
+              >
                 <td>
                   <div className="modify-buttons">
                     <input
                       type="checkbox"
+                      onClick={(e) => e.stopPropagation()}
                       checked={selectedApplications.has(app._id)}
                       onChange={() => handleSelect(app._id)}
                     />
                     <button
-                      onClick={() => navigate(`/application/update/${app._id}`)}
+                      onClick={(e) => {
+                        navigate(`/application/update/${app._id}`, {
+                          state: { from: location.pathname },
+                        });
+                        e.stopPropagation();
+                      }}
                     >
                       <PencilFill size={15} />
                     </button>
                     <button
-                      onClick={async () => {
+                      onClick={async (e) => {
+                        e.stopPropagation();
+
                         if (
                           !window.confirm(
                             "Are you sure you want to delete this application?"
@@ -331,7 +348,9 @@ function Table() {
                     </a>
                   )}
                 </td>
-                <td>{new Date(app.dateApplied).toLocaleDateString()}</td>
+                {!narrow && (
+                  <td>{new Date(app.dateApplied).toLocaleDateString()}</td>
+                )}
                 <td>{app.location || "N/A"}</td>
                 {!narrow && <td>{app.jobType || "N/A"}</td>}
                 {!narrow && <td>{app.status}</td>}

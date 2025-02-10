@@ -1,0 +1,111 @@
+.application-page-container {
+  max-width: 1200px;
+  width: calc(100% - 60px);
+  margin: 0 auto;
+  margin-top: 70px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  gap: 20px;
+  color: #273a51;
+}
+
+.application-page-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.application-page-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.application-page-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.application-page-stat-value {
+  background: #ebecec;
+  color: #5d6268;
+  padding: 7.5px 15px;
+  border-radius: 8px;
+}
+
+.application-page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.application-page-subtitle {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.application-page-details {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.application-page-detail {
+  display: flex;
+  gap: 5px;
+  background: #ebecec;
+  color: #5d6268;
+  padding: 7.5px 15px;
+  border-radius: 8px;
+}
+
+.application-page-detail a {
+  color: dodgerblue;
+  text-decoration: none;
+}
+
+.application-page-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.application-page-button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #0060b9;
+  color: white;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  font-size: 1rem;
+}
+
+.application-page-button:hover {
+  filter: brightness(0.75);
+}
+
+.application-page-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.application-page-tag {
+  background: #ebecec;
+  color: #5d6268;
+  padding: 7.5px 15px;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .application-page-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

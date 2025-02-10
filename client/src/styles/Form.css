@@ -126,3 +126,13 @@
 .form-error {
   color: #0060b9;
 }
+
+label:has(+ input:required)::after {
+  content: " *";
+  color: red;
+}
+
+label:has(+ select:required)::after {
+  content: " *";
+  color: red;
+}

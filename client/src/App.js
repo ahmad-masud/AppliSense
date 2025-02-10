@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Table from "./pages/Table";
 import Statistics from "./pages/Statistics";
 import ApplicationForm from "./pages/ApplicationForm";
+import ApplicationPage from "./pages/ApplicationPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Account from "./pages/Account";
@@ -37,6 +38,10 @@ function App() {
           <Route
             path="/statistics"
             element={user ? <Statistics /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/application/:id"
+            element={user ? <ApplicationPage /> : <Navigate to="/login" />}
           />
           <Route
             path="/application/create"

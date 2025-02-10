@@ -59,7 +59,7 @@ function Statistics() {
     return (
       <div className="chart-container">
         <p className="chart-title">{title}</p>
-        <PieChart width={400} height={300}>
+        <PieChart width={300} height={300}>
           <Pie
             data={data}
             dataKey="value"
