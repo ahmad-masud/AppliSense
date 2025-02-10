@@ -32,7 +32,7 @@ AppliSense is a simple yet powerful application app built using the MERN stack (
    ```
 2. **Install Dependencies**
 
-   - Install Dependencies for Frontend and Backend
+   - Install Dependencies for client and server
   
      ```bash
      npm run install-dependencies
