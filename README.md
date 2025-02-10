@@ -78,7 +78,6 @@ Ensure you have the following installed:
 1. **Sign up or log in** to access the dashboard.
 2. **Add new applications**, specifying the company, role, status, and applied date.
 3. **View statistics** about your applications using interactive charts.
-4. **Receive email notifications** for upcoming application deadlines.
 
 ---
 
