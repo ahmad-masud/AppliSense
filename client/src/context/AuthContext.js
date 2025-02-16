@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { useApplicationsContext } from "../hooks/useApplicationsContext";
 
 export const AuthContext = createContext();
 
@@ -17,6 +18,7 @@ const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, { user: null });
   const [loading, setLoading] = useState(true);
+  const { applicationsDispatch } = useApplicationsContext();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -26,20 +28,14 @@ export const AuthContextProvider = ({ children }) => {
       if (Date.now() >= exp * 1000) {
         localStorage.removeItem("user");
         dispatch({ type: "LOGOUT" });
+        applicationsDispatch({ type: "CLEAR" });
       } else {
         dispatch({ type: "LOGIN", payload: user });
-
-        const timeout = setTimeout(() => {
-          localStorage.removeItem("user");
-          dispatch({ type: "LOGOUT" });
-        }, exp * 1000 - Date.now());
-
-        return () => clearTimeout(timeout);
       }
     }
 
     setLoading(false);
-  }, []);
+  }, [applicationsDispatch]);
 
   if (loading) return null;
 

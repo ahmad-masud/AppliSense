@@ -16,7 +16,6 @@ import TermsOfService from "./pages/TermsOfServices";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import { useAuthContext } from "./hooks/useAuthContext";
-import { AlertsProvider } from "./context/AlertsContext";
 import Alerts from "./components/Alerts";
 
 function App() {
@@ -26,53 +25,51 @@ function App() {
 
   return (
     <div className="app">
-      <AlertsProvider>
-        <Alerts />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={user ? <Dashboard /> : <Home />} />
-          <Route
-            path="/table"
-            element={user ? <Table /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/statistics"
-            element={user ? <Statistics /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/application/:id"
-            element={user ? <ApplicationPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/application/create"
-            element={user ? <ApplicationForm /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/application/update/:id"
-            element={user ? <ApplicationForm /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
-          />
-          <Route
-            path="/register"
-            element={user ? <Navigate to="/" /> : <Register />}
-          />
-          <Route
-            path="/account"
-            element={user ? <Account /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/changePassword"
-            element={user ? <ChangePassword /> : <Navigate to="/login" />}
-          />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </AlertsProvider>
+      <Alerts />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={user ? <Dashboard /> : <Home />} />
+        <Route
+          path="/table"
+          element={user ? <Table /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/statistics"
+          element={user ? <Statistics /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/application/:id"
+          element={user ? <ApplicationPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/application/create"
+          element={user ? <ApplicationForm /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/application/update/:id"
+          element={user ? <ApplicationForm /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/" /> : <Register />}
+        />
+        <Route
+          path="/account"
+          element={user ? <Account /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/changePassword"
+          element={user ? <ChangePassword /> : <Navigate to="/login" />}
+        />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

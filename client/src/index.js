@@ -4,16 +4,19 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { ApplicationsContextProvider } from "./context/ApplicationsContext";
 import { AuthContextProvider } from "./context/AuthContext";
+import { AlertsProvider } from "./context/AlertsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <ApplicationsContextProvider>
+    <ApplicationsContextProvider>
+      <AuthContextProvider>
         <BrowserRouter>
-          <App />
+          <AlertsProvider>
+            <App />
+          </AlertsProvider>
         </BrowserRouter>
-      </ApplicationsContextProvider>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </ApplicationsContextProvider>
   </React.StrictMode>
 );
