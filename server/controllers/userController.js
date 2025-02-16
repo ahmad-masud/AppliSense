@@ -54,7 +54,7 @@ const verifyCode = (req, res) => {
 };
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.TOKEN_SECRET, { expiresIn: "3d" });
+  return jwt.sign({ _id }, process.env.TOKEN_SECRET, { expiresIn: "30d" });
 };
 
 const loginUser = async (req, res) => {
