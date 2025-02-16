@@ -89,27 +89,29 @@ function Statistics() {
 
   return (
     <div className="statistics">
-      {loading &&
-        [...Array(7)].map((_, index) => <StatisticSkeleton key={index} />)}
+      <div className="charts">
+        {loading &&
+          [...Array(7)].map((_, index) => <StatisticSkeleton key={index} />)}
 
-      {!loading &&
-        renderPieChart(formatPieData(stats.companyData), "Companies", false)}
-      {!loading &&
-        renderPieChart(formatPieData(stats.positionData), "Positions", false)}
-      {!loading &&
-        renderPieChart(formatPieData(stats.locationData), "Locations", false)}
-      {!loading &&
-        renderPieChart(formatPieData(stats.statusData), "Application Status")}
-      {!loading &&
-        renderPieChart(formatPieData(stats.jobTypeData), "Job Types")}
-      {!loading &&
-        renderPieChart(formatPieData(stats.workTypeData), "Work Types")}
-      {!loading &&
-        renderPieChart(
-          formatPieData(stats.sourceData),
-          "Application Sources",
-          false
-        )}
+        {!loading &&
+          renderPieChart(formatPieData(stats.companyData), "Companies", false)}
+        {!loading &&
+          renderPieChart(formatPieData(stats.positionData), "Positions", false)}
+        {!loading &&
+          renderPieChart(formatPieData(stats.locationData), "Locations", false)}
+        {!loading &&
+          renderPieChart(formatPieData(stats.statusData), "Application Status")}
+        {!loading &&
+          renderPieChart(formatPieData(stats.jobTypeData), "Job Types")}
+        {!loading &&
+          renderPieChart(formatPieData(stats.workTypeData), "Work Types")}
+        {!loading &&
+          renderPieChart(
+            formatPieData(stats.sourceData),
+            "Application Sources",
+            false
+          )}
+      </div>
     </div>
   );
 }

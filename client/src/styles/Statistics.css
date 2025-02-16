@@ -4,6 +4,10 @@
   margin: 0 auto;
   margin-top: 70px;
   margin-bottom: 20px;
+}
+
+.charts {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 10px;
