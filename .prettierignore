@@ -1,0 +1,37 @@
+# === Node dependencies ===
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# === Build output ===
+client/build/
+client/dist/
+server/build/
+server/dist/
+
+# === Logs and temp files ===
+*.log
+*.tmp
+
+# === Environment files ===
+.env
+.env.*
+
+# === OS-specific files ===
+.DS_Store
+Thumbs.db
+
+# === Prettier ignores ===
+
+# Ignore everything in server and client build outputs
+client/public/
+client/coverage/
+server/coverage/
+
+# Ignore TypeScript build info
+*.tsbuildinfo
+
+# Optional: ignore specific config files
+.prettierignore
+.prettierrc
+.eslintrc.js

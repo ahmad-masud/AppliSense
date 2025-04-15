@@ -3,7 +3,8 @@
     "start": "concurrently \"npm run start --prefix server\" \"npm run start --prefix client\"",
     "install-client": "cd client && npm install",
     "install-server": "cd server && npm install",
-    "install-dependencies": "npm run install-client && npm run install-server && npm install"
+    "install-dependencies": "npm run install-client && npm run install-server && npm install",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

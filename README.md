@@ -83,29 +83,31 @@ Ensure you have the following installed:
 
 ## API Endpoints
 
-### **Authentication**  
-| Method | Endpoint | Description |  
-|--------|----------|-------------|  
-| **POST** | `/users/register` | Register a new user |  
-| **POST** | `/users/login` | Login an existing user |  
-| **POST** | `/users/loginWithOTP` | Login using OTP |  
-| **DELETE** | `/users/delete` | Delete a user account |  
-| **PUT** | `/users/update` | Update user details |  
-| **PUT** | `/users/changePassword` | Change user password |  
-| **POST** | `/users/sendCode` | Send OTP code to user |  
-| **POST** | `/users/verifyCode` | Verify OTP code |  
+### **Authentication**
+
+| Method     | Endpoint                | Description            |
+| ---------- | ----------------------- | ---------------------- |
+| **POST**   | `/users/register`       | Register a new user    |
+| **POST**   | `/users/login`          | Login an existing user |
+| **POST**   | `/users/loginWithOTP`   | Login using OTP        |
+| **DELETE** | `/users/delete`         | Delete a user account  |
+| **PUT**    | `/users/update`         | Update user details    |
+| **PUT**    | `/users/changePassword` | Change user password   |
+| **POST**   | `/users/sendCode`       | Send OTP code to user  |
+| **POST**   | `/users/verifyCode`     | Verify OTP code        |
 
 ### **Applications API**
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| **GET** | `/applications/` | Retrieve all applications for the logged-in user |
-| **GET** | `/applications/stats` | Fetch application statistics |
-| **GET** | `/applications/:id` | Retrieve a specific application |
-| **POST** | `/applications/create` | Create a new application |
-| **POST** | `/applications/createMultiple` | Create multiple applications at once |
-| **DELETE** | `/applications/deleteMultiple` | Delete multiple applications |
-| **DELETE** | `/applications/delete/:id` | Delete a specific application |
-| **PATCH** | `/applications/update/:id` | Update an application |
+
+| Method     | Endpoint                       | Description                                      |
+| ---------- | ------------------------------ | ------------------------------------------------ |
+| **GET**    | `/applications/`               | Retrieve all applications for the logged-in user |
+| **GET**    | `/applications/stats`          | Fetch application statistics                     |
+| **GET**    | `/applications/:id`            | Retrieve a specific application                  |
+| **POST**   | `/applications/create`         | Create a new application                         |
+| **POST**   | `/applications/createMultiple` | Create multiple applications at once             |
+| **DELETE** | `/applications/deleteMultiple` | Delete multiple applications                     |
+| **DELETE** | `/applications/delete/:id`     | Delete a specific application                    |
+| **PATCH**  | `/applications/update/:id`     | Update an application                            |
 
 ---
 

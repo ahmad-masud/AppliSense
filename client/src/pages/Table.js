@@ -288,7 +288,11 @@ function Table() {
             {applications.map((app) => (
               <tr
                 key={app._id}
-                onClick={() => navigate(`/application/${app._id}`, {state: { from: location.pathname }})}
+                onClick={() =>
+                  navigate(`/application/${app._id}`, {
+                    state: { from: location.pathname },
+                  })
+                }
               >
                 <td>
                   <div className="modify-buttons">
