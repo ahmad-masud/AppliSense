@@ -40,7 +40,7 @@ function Register() {
       setIsLoading(false);
       return;
     }
-    
+
     setMessage("Verification email sent. Please check your inbox.");
     setIsLoading(false);
   };

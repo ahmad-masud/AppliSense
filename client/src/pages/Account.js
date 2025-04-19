@@ -41,7 +41,12 @@ function Account() {
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: oldEmail, newFirstName: firstName, newLastName: lastName, newEmail: email }),
+        body: JSON.stringify({
+          email: oldEmail,
+          newFirstName: firstName,
+          newLastName: lastName,
+          newEmail: email,
+        }),
       }
     );
 
@@ -76,7 +81,8 @@ function Account() {
   }, [success, addAlert]);
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete your account?")) return;
+    if (!window.confirm("Are you sure you want to delete your account?"))
+      return;
 
     setIsLoading(true);
     setError("");
@@ -120,7 +126,9 @@ function Account() {
         <form className="form" onSubmit={handleSubmit}>
           <p className="form-title">Account Management</p>
           <div className="form-group">
-            <label className="label" htmlFor="firstName">First Name</label>
+            <label className="label" htmlFor="firstName">
+              First Name
+            </label>
             <input
               className="input"
               type="text"
@@ -129,7 +137,9 @@ function Account() {
             />
           </div>
           <div className="form-group">
-            <label className="label" htmlFor="lastName">Last Name</label>
+            <label className="label" htmlFor="lastName">
+              Last Name
+            </label>
             <input
               className="input"
               type="text"
@@ -138,7 +148,9 @@ function Account() {
             />
           </div>
           <div className="form-group">
-            <label className="label" htmlFor="email">Email</label>
+            <label className="label" htmlFor="email">
+              Email
+            </label>
             <input
               className="input"
               type="email"
@@ -147,7 +159,11 @@ function Account() {
             />
           </div>
           <div className="form-group">
-            <button className="submit-button" type="submit" disabled={isLoading}>
+            <button
+              className="submit-button"
+              type="submit"
+              disabled={isLoading}
+            >
               Update Account
             </button>
           </div>
@@ -155,12 +171,20 @@ function Account() {
             <Link to="/changePassword" className="password-button">
               Change Password
             </Link>
-            <button className="logout-button" type="button" onClick={handleLogout}>
+            <button
+              className="logout-button"
+              type="button"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </div>
           <div className="form-group">
-            <button className="delete-button" type="button" onClick={handleDelete}>
+            <button
+              className="delete-button"
+              type="button"
+              onClick={handleDelete}
+            >
               Delete Account
             </button>
           </div>

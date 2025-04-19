@@ -77,7 +77,9 @@ function ResetPassword() {
         <form className="form" onSubmit={handleSubmit}>
           <p className="form-title">Set New Password</p>
           <div className="form-group">
-            <label className="label required" htmlFor="newPassword">New Password</label>
+            <label className="label required" htmlFor="newPassword">
+              New Password
+            </label>
             <input
               className="input"
               type="password"
@@ -89,7 +91,9 @@ function ResetPassword() {
             />
           </div>
           <div className="form-group">
-            <label className="label required" htmlFor="confirmPassword">Confirm Password</label>
+            <label className="label required" htmlFor="confirmPassword">
+              Confirm Password
+            </label>
             <input
               className="input"
               type="password"
@@ -100,7 +104,11 @@ function ResetPassword() {
               placeholder="••••••••••••••••"
             />
           </div>
-          <button className="submit-button" type="submit" disabled={isLoading || !tokenValid}>
+          <button
+            className="submit-button"
+            type="submit"
+            disabled={isLoading || !tokenValid}
+          >
             Reset Password
           </button>
           {error && <p className="form-error">{error}</p>}

@@ -13,7 +13,9 @@ const loginUser = async (req, res) => {
     const user = await User.login(email, password);
 
     if (!user.verified) {
-      return res.status(403).json({ error: "Please verify your email to log in." });
+      return res
+        .status(403)
+        .json({ error: "Please verify your email to log in." });
     }
 
     const token = createToken(user._id);
@@ -30,7 +32,9 @@ const registerUser = async (req, res) => {
 
   const user = await User.register(firstName, lastName, email, password);
 
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+    expiresIn: "1d",
+  });
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -49,7 +53,9 @@ const registerUser = async (req, res) => {
     html: `<p>Welcome! Please verify your account by clicking the link below:</p><a href="${verificationUrl}">${verificationUrl}</a>`,
   });
 
-  res.status(200).json({ message: "Verification email sent. Please check your inbox." });
+  res
+    .status(200)
+    .json({ message: "Verification email sent. Please check your inbox." });
 };
 
 const verifyEmail = async (req, res) => {
@@ -84,7 +90,9 @@ const verifyNewEmail = async (req, res) => {
     user.pendingEmail = null;
     await user.save();
 
-    const jwtToken = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: "30d" });
+    const jwtToken = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+      expiresIn: "30d",
+    });
 
     res.status(200).json({
       firstName: user.firstName,
@@ -121,11 +129,16 @@ const updateUser = async (req, res) => {
 
     if (newEmail && newEmail !== email) {
       const existing = await User.findOne({ email: newEmail });
-      if (existing) return res.status(400).json({ error: "Email already exists" });
+      if (existing)
+        return res.status(400).json({ error: "Email already exists" });
 
       user.pendingEmail = newEmail;
 
-      const token = jwt.sign({ id: user._id, newEmail }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+      const token = jwt.sign(
+        { id: user._id, newEmail },
+        process.env.TOKEN_SECRET,
+        { expiresIn: "1d" }
+      );
 
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -166,7 +179,6 @@ const updateUser = async (req, res) => {
   }
 };
 
-
 const changePassword = async (req, res) => {
   const { email, oldPassword, newPassword } = req.body;
 
@@ -185,7 +197,9 @@ const requestPasswordReset = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) throw new Error("No user found with that email");
 
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: "15m" });
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+      expiresIn: "15m",
+    });
 
     const transporter = nodemailer.createTransport({
       service: "gmail",

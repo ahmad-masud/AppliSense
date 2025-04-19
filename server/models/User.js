@@ -128,7 +128,11 @@ userSchema.statics.update = async function (
   await user.save();
 };
 
-userSchema.statics.changePassword = async function (email, oldPassword, newPassword) {
+userSchema.statics.changePassword = async function (
+  email,
+  oldPassword,
+  newPassword
+) {
   if (!email || !oldPassword || !newPassword) {
     throw new Error("All fields are required");
   }

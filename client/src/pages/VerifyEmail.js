@@ -12,7 +12,8 @@ function VerifyEmail() {
     const verify = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/verifyEmail/${token}`, {method: "POST"}
+          `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/verifyEmail/${token}`,
+          { method: "POST" }
         );
 
         if (!res.ok) {

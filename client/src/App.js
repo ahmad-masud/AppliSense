@@ -58,14 +58,8 @@ function App() {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         />
-        <Route
-          path="/verifyEmail/:token"
-          element={<VerifyEmail />}
-        />
-        <Route
-          path="/verifyNewEmail/:token"
-          element={<VerifyNewEmail />}
-        />
+        <Route path="/verifyEmail/:token" element={<VerifyEmail />} />
+        <Route path="/verifyNewEmail/:token" element={<VerifyNewEmail />} />
         <Route
           path="/account"
           element={user ? <Account /> : <Navigate to="/login" />}
@@ -74,14 +68,8 @@ function App() {
           path="/changePassword"
           element={user ? <ChangePassword /> : <Navigate to="/login" />}
         />
-        <Route
-          path="/resetRequest"
-          element={<ResetRequest />}
-        />
-        <Route
-          path="/resetPassword/:token"
-          element={<ResetPassword />}
-        />
+        <Route path="/resetRequest" element={<ResetRequest />} />
+        <Route path="/resetPassword/:token" element={<ResetPassword />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="*" element={<NotFound />} />
