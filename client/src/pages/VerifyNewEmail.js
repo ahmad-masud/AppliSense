@@ -15,7 +15,13 @@ function VerifyNewEmail() {
       try {
         const res = await fetch(
           `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/verifyNewEmail/${token}`,
-          { method: "POST" }
+          { 
+            method: "POST", 
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            }
+          }
         );
 
         const data = await res.json();

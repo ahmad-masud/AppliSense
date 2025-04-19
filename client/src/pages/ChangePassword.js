@@ -37,6 +37,7 @@ function ChangePassword() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify({ email: user.email, oldPassword, newPassword }),
       }

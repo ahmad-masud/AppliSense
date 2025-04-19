@@ -51,7 +51,8 @@ Ensure you have the following installed:
      TOKEN_SECRET=<your_jwt_secret>
      EMAIL_USER=<your_email>
      EMAIL_PASS=<your_email_password>
-     IS_LOCAL=<true/false>
+     PORT=<your_port>
+     CLIENT_URL=<your_frontend_url>
      ```
 
 4. **Frontend Setup**:
@@ -85,29 +86,31 @@ Ensure you have the following installed:
 
 ### **Authentication**
 
-| Method     | Endpoint                | Description            |
-| ---------- | ----------------------- | ---------------------- |
-| **POST**   | `/users/register`       | Register a new user    |
-| **POST**   | `/users/login`          | Login an existing user |
-| **POST**   | `/users/loginWithOTP`   | Login using OTP        |
-| **DELETE** | `/users/delete`         | Delete a user account  |
-| **PUT**    | `/users/update`         | Update user details    |
-| **PUT**    | `/users/changePassword` | Change user password   |
-| **POST**   | `/users/sendCode`       | Send OTP code to user  |
-| **POST**   | `/users/verifyCode`     | Verify OTP code        |
+| Method     | Endpoint                             | Description                      |
+| ---------- | ------------------------------------ | -------------------------------- |
+| **POST**   | `/users/login`                       | Login an existing user           |
+| **POST**   | `/users/register`                    | Register a new user              |
+| **POST**   | `/users/verifyEmail/:token`          | Verify initial email             |
+| **POST**   | `/users/verifyNewEmail/:token`       | Verify newly updated email       |
+| **DELETE** | `/users/delete`                      | Delete user account              |
+| **PUT**    | `/users/update`                      | Update user profile              |
+| **PUT**    | `/users/changePassword`              | Change account password          |
+| **POST**   | `/users/requestPasswordReset`        | Request a password reset link    |
+| **GET**    | `/users/validateResetToken/:token`   | Validate password reset token    |
+| **POST**   | `/users/resetPassword/:token`        | Reset password                   |
 
 ### **Applications API**
 
-| Method     | Endpoint                       | Description                                      |
-| ---------- | ------------------------------ | ------------------------------------------------ |
-| **GET**    | `/applications/`               | Retrieve all applications for the logged-in user |
-| **GET**    | `/applications/stats`          | Fetch application statistics                     |
-| **GET**    | `/applications/:id`            | Retrieve a specific application                  |
-| **POST**   | `/applications/create`         | Create a new application                         |
-| **POST**   | `/applications/createMultiple` | Create multiple applications at once             |
-| **DELETE** | `/applications/deleteMultiple` | Delete multiple applications                     |
-| **DELETE** | `/applications/delete/:id`     | Delete a specific application                    |
-| **PATCH**  | `/applications/update/:id`     | Update an application                            |
+| Method     | Endpoint                             | Description                                      |
+| ---------- | ------------------------------------ | ------------------------------------------------ |
+| **GET**    | `/applications/`                     | Retrieve all applications for the user          |
+| **GET**    | `/applications/stats`                | Fetch application statistics                     |
+| **GET**    | `/applications/:id`                  | Retrieve a specific application                  |
+| **POST**   | `/applications/create`               | Create a new application                         |
+| **POST**   | `/applications/createMultiple`       | Create multiple applications at once             |
+| **DELETE** | `/applications/deleteMultiple`       | Delete multiple applications                     |
+| **DELETE** | `/applications/delete/:id`           | Delete a specific application                    |
+| **PATCH**  | `/applications/update/:id`           | Update a specific application                    |
 
 ---
 

@@ -44,7 +44,7 @@ const registerUser = async (req, res) => {
     },
   });
 
-  const verificationUrl = `${process.env.IS_LOCAL ? "http://localhost:3000" : "https://applisense.vercel.app"}/verifyEmail/${token}`;
+  const verificationUrl = `${process.env.CLIENT_URL}/verifyEmail/${token}`;
 
   await transporter.sendMail({
     from: `"AppliSense" <${process.env.EMAIL_USER}>`,
@@ -148,7 +148,7 @@ const updateUser = async (req, res) => {
         },
       });
 
-      const link = `${process.env.IS_LOCAL ? "http://localhost:3000" : "https://applisense.vercel.app"}/verifyNewEmail/${token}`;
+      const link = `${process.env.CLIENT_URL}/verifyNewEmail/${token}`;
 
       await transporter.sendMail({
         from: `"AppliSense" <${process.env.EMAIL_USER}>`,
@@ -209,7 +209,7 @@ const requestPasswordReset = async (req, res) => {
       },
     });
 
-    const resetUrl = `${process.env.IS_LOCAL ? "http://localhost:3000" : "https://applisense.vercel.app"}/resetPassword/${token}`;
+    const resetUrl = `${process.env.CLIENT_URL}/resetPassword/${token}`;
 
     await transporter.sendMail({
       from: `"AppliSense" <${process.env.EMAIL_USER}>`,

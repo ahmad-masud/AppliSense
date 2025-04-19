@@ -40,7 +40,10 @@ function Account() {
       `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/update`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${user.token}`
+        },
         body: JSON.stringify({
           email: oldEmail,
           newFirstName: firstName,
@@ -62,13 +65,12 @@ function Account() {
       ...user,
       firstName: data.firstName,
       lastName: data.lastName,
-      email: data.email,
     };
 
     localStorage.setItem("user", JSON.stringify(updatedUser));
     authDispatch({ type: "LOGIN", payload: updatedUser });
 
-    setMessage(response.message);
+    setMessage(data.message);
     setIsLoading(false);
     setSuccess(true);
     setOldEmail(email);
@@ -91,7 +93,10 @@ function Account() {
       `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/delete`,
       {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${user.token}`
+        },
         body: JSON.stringify({ email }),
       }
     );

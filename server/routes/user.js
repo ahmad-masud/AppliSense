@@ -12,20 +12,21 @@ const {
   validateResetToken,
   requestPasswordReset,
 } = require("../controllers/userController");
+const requireAuth = require("../middleware/requireAuth");
 
 router.post("/login", loginUser);
 
 router.post("/register", registerUser);
 
-router.post("/verifyNewEmail/:token", verifyNewEmail);
+router.post("/verifyNewEmail/:token", requireAuth, verifyNewEmail);
 
 router.post("/verifyEmail/:token", verifyEmail);
 
-router.delete("/delete", deleteUser);
+router.delete("/delete", requireAuth, deleteUser);
 
-router.put("/update", updateUser);
+router.put("/update", requireAuth, updateUser);
 
-router.put("/changePassword", changePassword);
+router.put("/changePassword", requireAuth, changePassword);
 
 router.post("/requestPasswordReset", requestPasswordReset);
 
