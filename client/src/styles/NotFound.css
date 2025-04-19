@@ -32,5 +32,5 @@
 }
 
 .not-found-button:hover {
-  background: rgb(90, 28, 148);
+  filter: brightness(0.75);
 }

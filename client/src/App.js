@@ -10,6 +10,10 @@ import ApplicationForm from "./pages/ApplicationForm";
 import ApplicationPage from "./pages/ApplicationPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import VerifyEmail from "./pages/VerifyEmail";
+import VerifyNewEmail from "./pages/VerifyNewEmail";
+import ResetPassword from "./pages/ResetPassword";
+import ResetRequest from "./pages/ResetRequest";
 import Account from "./pages/Account";
 import ChangePassword from "./pages/ChangePassword";
 import TermsOfService from "./pages/TermsOfServices";
@@ -55,12 +59,28 @@ function App() {
           element={user ? <Navigate to="/" /> : <Register />}
         />
         <Route
+          path="/verifyEmail/:token"
+          element={<VerifyEmail />}
+        />
+        <Route
+          path="/verifyNewEmail/:token"
+          element={<VerifyNewEmail />}
+        />
+        <Route
           path="/account"
           element={user ? <Account /> : <Navigate to="/login" />}
         />
         <Route
           path="/changePassword"
           element={user ? <ChangePassword /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/resetRequest"
+          element={<ResetRequest />}
+        />
+        <Route
+          path="/resetPassword/:token"
+          element={<ResetPassword />}
         />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />

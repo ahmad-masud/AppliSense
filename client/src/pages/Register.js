@@ -1,7 +1,6 @@
 import "../styles/Form.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useRegister } from "../hooks/useRegister";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -9,7 +8,9 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { register, error, isLoading } = useRegister();
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     document.title = "Register | AppliSense";
@@ -17,8 +18,31 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-    await register(firstName, lastName, email, password, confirmPassword);
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    const response = await fetch("http://localhost:4000/users/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName, lastName, email, password }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.error);
+      setIsLoading(false);
+      return;
+    }
+    
+    setMessage("Verification email sent. Please check your inbox.");
+    setIsLoading(false);
   };
 
   return (
@@ -95,6 +119,7 @@ function Register() {
             Register
           </button>
           {error && <p className="form-error">{error}</p>}
+          {message && <p className="form-success">{message}</p>}
           <p className="form-link">
             Already have an account?{" "}
             <Link className="link" to="/login">

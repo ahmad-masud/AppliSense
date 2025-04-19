@@ -1,12 +1,15 @@
 import "../styles/Form.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useLogin } from "../hooks/useLogin";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, loginWithOTP, error, isLoading } = useLogin();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Login | AppliSense";
@@ -14,14 +17,30 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-    await login(email, password);
-  };
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:4000"}/users/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
+    const data = await response.json();
 
-  const handleReset = async (e) => {
-    e.preventDefault();
+    if (!response.ok) {
+      setError(data.error);
+      setIsLoading(false);
+      return;
+    }
 
-    await loginWithOTP(email);
+    localStorage.setItem("user", JSON.stringify(data));
+    dispatch({ type: "LOGIN", payload: data });
+    setIsLoading(false);
   };
 
   return (
@@ -67,8 +86,8 @@ function Login() {
           </p>
           <p>
             Forgot your password?{" "}
-            <button className="link" onClick={handleReset}>
-              Login with OTP
+            <button className="link" onClick={() => navigate("/resetRequest")}>
+              Reset Password
             </button>
           </p>
         </form>

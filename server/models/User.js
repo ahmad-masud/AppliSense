@@ -18,9 +18,17 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  pendingEmail: {
+    type: String,
+    default: null,
+  },
   password: {
     type: String,
     required: true,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -79,20 +87,6 @@ userSchema.statics.login = async function (email, password) {
   return user;
 };
 
-userSchema.statics.loginWithOTP = async function (email) {
-  if (!email) {
-    throw new Error("Email is required");
-  }
-
-  const user = await this.findOne({ email });
-
-  if (!user) {
-    throw new Error("User not found");
-  }
-
-  return user;
-};
-
 userSchema.statics.delete = async function (email) {
   if (!email) {
     throw new Error("Email is required");
@@ -134,8 +128,8 @@ userSchema.statics.update = async function (
   await user.save();
 };
 
-userSchema.statics.changePassword = async function (email, newPassword) {
-  if (!email || !newPassword) {
+userSchema.statics.changePassword = async function (email, oldPassword, newPassword) {
+  if (!email || !oldPassword || !newPassword) {
     throw new Error("All fields are required");
   }
 
@@ -143,6 +137,12 @@ userSchema.statics.changePassword = async function (email, newPassword) {
 
   if (!user) {
     throw new Error("Email not found");
+  }
+
+  const match = await bcrypt.compare(oldPassword, user.password);
+
+  if (!match) {
+    throw new Error("Old password is incorrect");
   }
 
   if (!validator.isStrongPassword(newPassword)) {

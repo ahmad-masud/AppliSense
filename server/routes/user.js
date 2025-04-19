@@ -2,20 +2,24 @@ const express = require("express");
 const router = express.Router();
 const {
   loginUser,
-  loginUserWithOTP,
   registerUser,
+  verifyEmail,
   deleteUser,
+  verifyNewEmail,
   updateUser,
   changePassword,
-  sendCode,
-  verifyCode,
+  resetPassword,
+  validateResetToken,
+  requestPasswordReset,
 } = require("../controllers/userController");
 
 router.post("/login", loginUser);
 
-router.post("/loginWithOTP", loginUserWithOTP);
-
 router.post("/register", registerUser);
+
+router.post("/verifyNewEmail/:token", verifyNewEmail);
+
+router.post("/verifyEmail/:token", verifyEmail);
 
 router.delete("/delete", deleteUser);
 
@@ -23,8 +27,10 @@ router.put("/update", updateUser);
 
 router.put("/changePassword", changePassword);
 
-router.post("/sendCode", sendCode);
+router.post("/requestPasswordReset", requestPasswordReset);
 
-router.post("/verifyCode", verifyCode);
+router.get("/validateResetToken/:token", validateResetToken);
+
+router.post("/resetPassword/:token", resetPassword);
 
 module.exports = router;

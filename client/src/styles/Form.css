@@ -124,7 +124,7 @@
 }
 
 .form-error {
-  color: #0060b9;
+  color: red;
 }
 
 label:has(+ input:required)::after {

@@ -11,7 +11,7 @@
 }
 
 .application:hover {
-  background-color: #159e87;
+  background-color: #0060b9;
   transition: all 200ms ease-in-out;
   color: white;
 }
@@ -57,7 +57,6 @@
   padding: 5px;
   border-radius: 4px;
   transition: all 200ms ease-in-out;
-  color: black;
 }
 
 .application-link {
@@ -70,5 +69,5 @@
 .application-delete:hover,
 .application-edit:hover,
 .application-link:hover {
-  background: rgb(225, 225, 225);
+  filter: brightness(0.75);
 }
