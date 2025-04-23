@@ -1,6 +1,9 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const Application = require("../models/Application");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.TOKEN_SECRET, { expiresIn: "30d" });
@@ -10,7 +13,19 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.login(email, password);
+    if (!email || !password) {
+      throw new Error("All fields are required");
+    }
+    
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("Email not found");
+    }
+    
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw new Error("Password is incorrect");
+    }
 
     if (!user.verified) {
       return res
@@ -30,7 +45,30 @@ const loginUser = async (req, res) => {
 const registerUser = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
-  const user = await User.register(firstName, lastName, email, password);
+  if (!firstName || !lastName || !email || !password) {
+    throw new Error("All fields are required");
+  }
+  if (!validator.isEmail(email)) {
+    throw new Error("Email is not valid");
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw new Error("Password is not strong enough");
+  }
+  
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    throw new Error("Email is already in use");
+  }
+  
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    password: hashedPassword,
+  });
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
     expiresIn: "1d",
@@ -110,7 +148,16 @@ const deleteUser = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const user = await User.delete(email);
+    if (!email) {
+      throw new Error("Email is required");
+    }
+    
+    const user = await User.findOne({ email });
+    if (!user) throw new Error("User not found");
+    
+    await Application.deleteMany({ user_id: user._id });
+    await User.findOneAndDelete({ email });
+
     res.status(200).json({ email });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -183,7 +230,29 @@ const changePassword = async (req, res) => {
   const { email, oldPassword, newPassword } = req.body;
 
   try {
-    const user = await User.changePassword(email, oldPassword, newPassword);
+    if (!email || !oldPassword || !newPassword) {
+      throw new Error("All fields are required");
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("Email not found");
+    }
+
+    const match = await bcrypt.compare(oldPassword, user.password);
+    if (!match) {
+      throw new Error("Old password is incorrect");
+    }
+
+    if (!validator.isStrongPassword(newPassword)) {
+      throw new Error("Password is not strong enough");
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(newPassword, salt);
+    user.password = hash;
+    await user.save();
+
     res.status(200).json({ email });
   } catch (error) {
     res.status(400).json({ error: error.message });
